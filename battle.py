@@ -1,0 +1,2 @@
+class Battle:
+    pass
