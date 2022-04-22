@@ -122,9 +122,4 @@ class Squirtle(PokemonBase):
 
 
 if __name__ == '__main__':
-    charm = Charmander()
-    bulb = Bulbasaur()
-    print("Testing charmander vs bulbasaur")
-    taken = charm.calculate_damage_taken(bulb)
-    print(taken)
-
+    pass

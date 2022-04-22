@@ -1,0 +1,24 @@
+"""Need to test every method in ookemon.py. remove from TODO when test is written
+TODO:
+    CHARMANDER():
+    __init__
+    get_name
+    get_attack
+    get_defence
+    get_speed
+    calculate_damage_taken
+    BULBASAUR():
+    __init__
+    get_name
+    get_attack
+    get_defence
+    get_speed
+    calculate_damage_taken
+    SQUIRTLE():
+    __init__
+    get_name
+    get_attack
+    get_defence
+    get_speed
+    calculate_damage_taken
+"""
