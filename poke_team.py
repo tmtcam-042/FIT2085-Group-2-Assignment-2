@@ -4,7 +4,6 @@ from stack_adt import ArrayStack
 from queue_adt import CircularQueue
 from sorted_list import ArraySortedList, ListItem
 
-
 class PokeTeam:
     """
     Creates a team for a trainer with a maximum of 6 pokemon and sets the battle mode
@@ -128,10 +127,24 @@ class PokeTeam:
 
     def __str__(self) -> str:
         string = []
-        team = self.team
         # returning the user's team selection
-        for i in range(len(team)):
-            string.append(str(self.remove()))
+
+        if self.team.__class__.__name__ == "ArrayStack":
+            initial_length = self.team.length
+            for i in range(len(self)):
+                string.append(str(self.team.peek()))
+                self.team.length -= 1
+            self.team.length = initial_length
+
+        elif self.team.__class__.__name__ == "CircularQueue":
+            for i in range(len(self)):
+                item = self.team.serve()
+                string.append(str(item))
+                self.team.append(item)
+
+        elif self.team.__class__.__name__ == "ArraySortedList":
+            for i in range(len(self)):
+                string.append(str(self.team[i].get_value()))
 
         return ", ".join(string)
         #return ",\n".join(string) + "\n"
@@ -143,7 +156,9 @@ class PokeTeam:
         if self.team.__class__.__name__ == "ArrayStack":
             return self.team.pop()
         elif self.team.__class__.__name__ == "CircularQueue":
-            return self.team.serve()
+            return self.team.serve() 
+        elif self.team.__class__.__name__ == "ArraySortedList":
+            return self.team.delete_at_index(0).get_value()
         else:
             raise Exception("Unknown data structure")
 

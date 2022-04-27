@@ -39,9 +39,9 @@ class Battle:
                 self.team2.push(pokemon2)
 
         # Return winner or draw
-        if self.team1.team.length > 0:
+        if len(self.team1) > 0:
             return self.team1.trainer_name
-        elif self.team2.team.length > 0:
+        elif len(self.team2) > 0:
             return self.team2.trainer_name
         else:
             return "DRAW"
@@ -54,7 +54,6 @@ class Battle:
         self.set_battle_mode_to(1)
         self.team1.choose_team(1)
         self.team2.choose_team(1)
-
 
         while len(self.team1) > 0 and len(self.team2) > 0:
             pokemon1 = self.team1.team.serve()
@@ -87,8 +86,8 @@ class Battle:
         # FIGHT
         while len(self.team1) > 0 and len(self.team2) > 0:
 
-            pokemon1 = self.team1.team.delete_at_index(0).get_value()  # Remove the item at the head of each list
-            pokemon2 = self.team2.team.delete_at_index(0).get_value()
+            pokemon1 = self.team1.remove()  # Remove the item at the head of each list
+            pokemon2 = self.team2.remove()
 
             self.fight(pokemon1, pokemon2)
             if pokemon1.get_hp() > 0:
@@ -101,17 +100,15 @@ class Battle:
 
         # Return winner or draw
         if len(self.team1) > 0:
-            print(self.team1)
             return self.team1.trainer_name
-        elif self.team2.team.length > 0:
-            print(self.team2)
-            return self.team1.trainer_name
+        elif len(self.team2) > 0:
+            return self.team2.trainer_name
         else:
             return "DRAW"
 
     def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase) -> None:
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 retaliates
-            print("P1 is faster than P2")
+            print(f"{pokemon1.get_name()} is faster than {pokemon2.get_name()}")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
             if pokemon2.get_hp() > 0:
                 pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
@@ -119,7 +116,7 @@ class Battle:
                 pokemon1.set_level(pokemon1.get_level() + 1)
 
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
-            print("P1 is slower than P2")
+            print(f"{pokemon1.get_name()} is slower than {pokemon2.get_name()}")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
             if pokemon1.get_hp() > 0:
                 pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
