@@ -40,7 +40,7 @@ class PokemonBase(ABC, Generic[T]):
         self.level = self.level + 1
 
     def set_hp(self, hp: int) -> None:
-        self.hp = hp
+        self.hp = int(hp)
 
     def set_level(self, level: int) -> None:
         self.level = level
@@ -59,6 +59,25 @@ class PokemonBase(ABC, Generic[T]):
 
     def get_poke_type(self) -> str:
         return self.poke_type
+
+    def get_criterion(self, criterion: str) -> int:
+        """
+        :pre: criterion is one of lvl, hp, attack, defence, speed. Checked in Battle.optimised_mode_battle
+        :param criterion: string containing one of Level, HP, Attack, Defence, Speed
+        :return: relevant criterion from Pokemon object
+        """
+        if criterion == "lvl":
+            return self.level
+        elif criterion == "hp":
+            return self.hp
+        elif criterion == "attack":
+            return self.attack
+        elif criterion == "defence":
+            return self.defence
+        elif criterion == "speed":
+            return self.speed
+        else:
+            raise Exception("Invalid criterion")
 
     @abstractmethod
     def calculate_damage_taken(self, other: T) -> int:

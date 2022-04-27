@@ -30,8 +30,8 @@ class Battle:
 
         # FIGHT
         while len(self.team1) > 0 and len(self.team2) > 0:
-            pokemon1 = self.team1.pop()
-            pokemon2 = self.team2.pop()
+            pokemon1 = self.team1.remove()
+            pokemon2 = self.team2.remove()
             self.fight(pokemon1, pokemon2)
             if pokemon1.get_hp() > 0:
                 self.team1.push(pokemon1)
@@ -40,41 +40,44 @@ class Battle:
 
         # Return winner or draw
         if self.team1.team.length > 0:
-            return "TEAM 1"
+            return self.team1.trainer_name
         elif self.team2.team.length > 0:
-            return "TEAM 2"
+            return self.team2.trainer_name
         else:
             return "DRAW"
 
     def rotating_mode_battle(self) -> str:  # Task 4
+        """
+        Engages both teams in a battle in rotating battle mode   
+        :return: string containing the winning team, or DRAW in case of a tie
+        """
         self.set_battle_mode_to(1)
         self.team1.choose_team(1)
-        print(self.team1)
         self.team2.choose_team(1)
-        print(self.team2)
+
 
         while len(self.team1) > 0 and len(self.team2) > 0:
-            pokemon1 = self.team1.serve()
-            pokemon2 = self.team2.serve()
+            pokemon1 = self.team1.team.serve()
+            pokemon2 = self.team2.team.serve()
             self.fight(pokemon1, pokemon2)
             if pokemon1.get_hp() > 0:
-                self.team1.append(pokemon1)
+                self.team1.team.append(pokemon1)
             if pokemon2.get_hp() > 0:
-                self.team2.append(pokemon2)
+                self.team2.team.append(pokemon2)
 
         # Return winner or draw
-        if self.team1.team.length > 0:
-            return "TEAM 1"
+        if len(self.team1) > 0:
+            return self.team1.trainer_name
         elif self.team2.team.length > 0:
-            return "TEAM 2"
+            return self.team2.trainer_name
         else:
             return "DRAW"
 
     def optimised_mode_battle(self, criterion_team1: str, criterion_team2: str) -> str:  # Task 5
         """TODO: Finish this description. Figure out where to ask for criterion
 
-        :param criterion_team1: Sorting criterion. Can be one of: Level, HP, Attack, Defence, Speed
-        :param criterion_team2: Sorting criterion. Can be one of: Level, HP, Attack, Defence, Speed
+        :param criterion_team1: Sorting criterion. Can be one of: lvl, hp, attack, defence, speed
+        :param criterion_team2: Sorting criterion. Can be one of: lvl, hp, attack, defence, speed
         :return: string containing the winning team, or DRAW in case of a tie
         """
         self.set_battle_mode_to(2)
@@ -97,15 +100,17 @@ class Battle:
             self.team2.team.sort()
 
         # Return winner or draw
-        if self.team1.team.length > 0:
-            return "TEAM 1"
+        if len(self.team1) > 0:
+            print(self.team1)
+            return self.team1.trainer_name
         elif self.team2.team.length > 0:
-            return "TEAM 2"
+            print(self.team2)
+            return self.team1.trainer_name
         else:
             return "DRAW"
 
     def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase) -> None:
-        if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 has chance to retaliate.
+        if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 retaliates
             print("P1 is faster than P2")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
             if pokemon2.get_hp() > 0:
@@ -148,5 +153,7 @@ class Battle:
 if __name__ == "__main__":
     # ================= EXAMPLE APP EXECUTION =================
     b = Battle("Ash", "Gary")
-    print(b.optimised_mode_battle("HP", "Level"))
+    #print(b.set_mode_battle())
+    print(b.rotating_mode_battle())
+    #print(b.optimised_mode_battle("hp", "lvl"))
 

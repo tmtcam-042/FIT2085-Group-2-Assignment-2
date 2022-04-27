@@ -12,10 +12,14 @@ class Giratina(GlitchMon):
         self.defence = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
         self.speed = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
 
+    def increaseHp(self) -> int:
+        self.set_hp(self.get_hp() + 1)
+
     def get_name(self) -> str:
         return self.name
 
     def get_attack(self) -> int:
+        print(self.attack)
         return self.attack + (self.level - 1)
 
     def get_defence(self) -> int:
@@ -39,16 +43,10 @@ if __name__ == "__main__":
     charm = Charmander()
     hp = charm.__str__()
     gir = Giratina()
-    print(gir.get_attack())
-    gir.level_up()
-    gir.level_up()
-    gir.level_up()
-    gir.level_up()
-    gir.level_up()
-    gir.level_up()
-    print(gir.get_attack())
+    print(gir.get_level())
     print(gir.get_hp())
-    print(Charmander().get_hp())
-    print(Squirtle().get_hp())
-    print(Bulbasaur().get_hp())
+    print(gir.superpower())
+    print(gir.get_level())
+    print(gir.get_hp())
+    print(gir.get_criterion("HP"))
 

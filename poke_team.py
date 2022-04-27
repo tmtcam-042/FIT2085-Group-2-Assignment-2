@@ -12,7 +12,6 @@ class PokeTeam:
 
     def __init__(self, trainer_name):
         self.trainer_name = trainer_name
-        # self.team = ArrayStack(6) #initialising team as an ArrayStack object and setting 6 as the max capacity
         self.battle_mode = 0  # default battle mode is 0
         self.team = None  # updated in choose_team
 
@@ -90,7 +89,6 @@ class PokeTeam:
         [self.team.push(Squirtle()) for _ in range(squir) if not self.team.is_full()]
         [self.team.push(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.push(Charmander()) for _ in range(charm) if not self.team.is_full()]
-        
 
     def assign_rotating_mode_battle(self, charm: int, bulb: int, squir: int) -> None:
         """
@@ -103,9 +101,9 @@ class PokeTeam:
         """
         self.team = CircularQueue(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full 
-        [self.team.append(Squirtle()) for _ in range(squir) if not self.team.is_full()]
-        [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.append(Charmander()) for _ in range(charm) if not self.team.is_full()]
+        [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
+        [self.team.append(Squirtle()) for _ in range(squir) if not self.team.is_full()]
 
     def assign_optimised_mode_battle(self, charm: int, bulb: int, squir: int, criterion: str) -> None:
         """
@@ -119,31 +117,33 @@ class PokeTeam:
         :raise Exception: if criterion is invalid
         """
         self.team = ArraySortedList(6)
-
+        # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
         [self.team.add(ListItem(Charmander(), Charmander().get_criterion(criterion))) for _ in range(charm)]
         [self.team.add(ListItem(Bulbasaur(), Bulbasaur().get_criterion(criterion))) for _ in range(bulb)]
         [self.team.add(ListItem(Squirtle(), Squirtle().get_criterion(criterion))) for _ in range(squir)]
 
         self.team.sort()
 
+        # add Giratina here 
+
     def __str__(self) -> str:
         string = []
+        team = self.team
         # returning the user's team selection
-        start_length = self.team.length  # Storing array length to restore later
-        for i in range(len(self.team)):
-            string.append(str(self.team.peek()))
-            self.team.length -= 1  # get next element from the stack
+        for i in range(len(team)):
+            string.append(str(self.remove()))
 
-        self.team.length = start_length  # reset the value of length for the stack
-        # return ",".join(string)
-        return ",\n".join(string) + "\n"
+        return ", ".join(string)
+        #return ",\n".join(string) + "\n"
 
     def __len__(self) -> int:
         return self.team.length
 
-    def pop(self) -> PokemonBase:
+    def remove(self) -> PokemonBase:
         if self.team.__class__.__name__ == "ArrayStack":
             return self.team.pop()
+        elif self.team.__class__.__name__ == "CircularQueue":
+            return self.team.serve()
         else:
             raise Exception("Unknown data structure")
 

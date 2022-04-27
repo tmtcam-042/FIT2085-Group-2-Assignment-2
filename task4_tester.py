@@ -25,6 +25,7 @@ class TestTask4(TesterBase):
         try:
             assert str(b.team1) == "Squirtle's HP = 8 and level = 1, Charmander's HP = 7 and level = 2, Charmander's HP = 7 and level = 2, Bulbasaur's HP = 7.0 and level = 1, Bulbasaur's HP = 8.0 and level = 2"
         except AssertionError:
+            print(str(b.team1))
             self.verificationErrors.append(f"Team 1 is not correct after battle: {str(b.team1)}")
 
     ### ADD TESTS HERE

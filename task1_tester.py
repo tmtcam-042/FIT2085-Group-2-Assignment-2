@@ -1,9 +1,7 @@
+import unittest
 
-# for loop for pushing pokemons to self.team if team is not full
-        [self.team.push(Squirtle()) for _ in range(squir) if not self.team.is_full()]
-        [self.team.push(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
-        [self.team.push(Charmander()) for _ in range(charm) if not self.team.is_full()]
-        
+from tester_base import TesterBase
+
 class TestTask1(TesterBase):
 
     def test_charmander_string(self):
