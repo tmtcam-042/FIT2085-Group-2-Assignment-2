@@ -5,9 +5,7 @@ Each class has to also init PokemonBase, so init looks like:
 def __init__(self, etc) -> None:
     PokemonBase.__init__(self, etcetc)
 """
-from typing import TypeVar, Generic
 from pokemon_base import PokemonBase
-
 
 class Charmander(PokemonBase):
     def __init__(self):
@@ -97,7 +95,7 @@ class Squirtle(PokemonBase):
         return self.name
 
     def get_attack(self) -> int:
-        return self.attack + self.level // 2
+        return self.attack + (self.level // 2)
 
     def get_defence(self) -> int:
         return self.defence + self.level
@@ -123,8 +121,14 @@ class Squirtle(PokemonBase):
 
 if __name__ == '__main__':
     charm = Charmander()
-    bulb = Bulbasaur()
-    print("Testing charmander vs bulbasaur")
-    taken = charm.calculate_damage_taken(bulb)
-    print(taken)
+    squir = Squirtle()
+    print(squir.get_attack())
+    squir.level_up()
+    squir.level_up()
+    squir.level_up()
+    squir.level_up()
+    squir.level_up()
+    squir.level_up()
+    print(squir.get_attack())
+
 

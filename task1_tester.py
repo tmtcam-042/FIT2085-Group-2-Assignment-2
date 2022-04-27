@@ -1,5 +1,4 @@
 import unittest
-
 from tester_base import TesterBase
 
 class TestTask1(TesterBase):

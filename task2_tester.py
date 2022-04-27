@@ -34,7 +34,16 @@ class TestTask2(TesterBase):
             self.verificationErrors.append(f"PokeTeam does not handle limit correctly. {str(team)}")
 
     ### ADD TESTS HERE
+    def test_battlemode(self):
+        """
+        Tests if an incorrect battle_mode value raises an Error.
+        """
+        from poke_team import PokeTeam
+        team = PokeTeam("Ash")
+
+        self.assertRaises(ValueError, team.choose_team, 3, None)
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestTask2)
     unittest.TextTestRunner(verbosity=0).run(suite)
+

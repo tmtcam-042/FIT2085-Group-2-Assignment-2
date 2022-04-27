@@ -2,14 +2,14 @@
 Needs 'from abc import ABC, abstractmethod' see - week 6 content
 for abstract base classes.
 Probably also needs import TypeVAR, Generic for runtime type hints
-and generic class types? Unsure, a bit shaky on these concepts
+and generic class types? Unsure, bit shaky on these concepts
 
-So opening is imports, T = TypeVar('T') etc., then
+So opening is imports, T = TypeVar('T') etc, then
 class PokemonBase(ABC, Generic[T]) <- still have no real idea what generic does
 then def __init__(self, int: hp, ???: poke_type): (what datatype is poke_type?)
 etc
 
-NOTES from assignment specs to follow:
+NOTES from assignemnt specs to follow:
 Preconditions must be checked in abstract methods if possible.
 The docstring for each method must contain best and worst-case complexity.
 We must add at least 1 unit test for each method in a file named
@@ -35,6 +35,9 @@ class PokemonBase(ABC, Generic[T]):
 
     def get_level(self) -> int:
         return self.level
+
+    def level_up(self) -> int:
+        self.level = self.level + 1
 
     def set_hp(self, hp: int) -> None:
         self.hp = hp
