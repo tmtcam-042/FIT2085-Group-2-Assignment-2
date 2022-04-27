@@ -30,6 +30,25 @@ class Charmander(PokemonBase):
         self.speed = 7 + self.level
         return self.speed
 
+    def get_criterion(self, criterion: str) -> int:
+        """
+        :pre: criterion is one of Level, HP, Attack, Defence, Speed. Checked in Battle.optimised_mode_battle
+        :param criterion: string containing one of Level, HP, Attack, Defence, Speed
+        :return: relevant criterion from Pokemon object
+        """
+        if criterion == "Level":
+            return self.level
+        elif criterion == "HP":
+            return self.hp
+        elif criterion == "Attack":
+            return self.attack
+        elif criterion == "Defence":
+            return self.defence
+        elif criterion == "Speed":
+            return self.speed
+        else:
+            raise Exception("Invalid criterion")
+
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack()
@@ -67,6 +86,25 @@ class Bulbasaur(PokemonBase):
     def get_speed(self) -> int:
         return self.speed + self.level // 2
 
+    def get_criterion(self, criterion: str) -> int:
+        """
+        :pre: criterion is one of Level, HP, Attack, Defence, Speed. Checked in Battle.optimised_mode_battle
+        :param criterion: string containing one of Level, HP, Attack, Defence, Speed
+        :return: relevant criterion from Pokemon object
+        """
+        if criterion == "Level":
+            return self.level
+        elif criterion == "HP":
+            return self.hp
+        elif criterion == "Attack":
+            return self.attack
+        elif criterion == "Defence":
+            return self.defence
+        elif criterion == "Speed":
+            return self.speed
+        else:
+            raise Exception("Invalid criterion")
+
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
@@ -102,6 +140,25 @@ class Squirtle(PokemonBase):
 
     def get_speed(self) -> int:
         return self.speed
+
+    def get_criterion(self, criterion: str) -> int:
+        """
+        :pre: criterion is one of Level, HP, Attack, Defence, Speed. Checked in Battle.optimised_mode_battle
+        :param criterion: string containing one of Level, HP, Attack, Defence, Speed
+        :return: relevant criterion from Pokemon object
+        """
+        if criterion == "Level":
+            return self.level
+        elif criterion == "HP":
+            return self.hp
+        elif criterion == "Attack":
+            return self.attack
+        elif criterion == "Defence":
+            return self.defence
+        elif criterion == "Speed":
+            return self.speed
+        else:
+            raise Exception("Invalid criterion")
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == 'Fire':

@@ -1,6 +1,8 @@
 from pokemon import Charmander, Bulbasaur, Squirtle
 from pokemon_base import PokemonBase
 from stack_adt import ArrayStack
+from queue_adt import CircularQueue
+from sorted_list import ArraySortedList, ListItem
 
 
 class PokeTeam:
@@ -20,7 +22,7 @@ class PokeTeam:
         the user so that the user can select the layout of the team i.e how many types of pokemon in a team of 6.
 
         :param battle_mode: the battle mode of the battle between two teams
-        :param criterion: Not being used right now
+        :param criterion: Used in optimised battle mode to determine criterion to sort by
         return: None
         """
         # Set battle team
@@ -33,7 +35,7 @@ class PokeTeam:
                                "where C is the number of Charmanders\n"
                                "      B is the number of Bulbasaurs\n"
                                "      S is the number of Squirtles\n")
-        team = [0, 0, 0]    # updated below
+        team = [0, 0, 0]  # updated below
         while True:
             try:
                 team = list(map(int, input(choose_team_details).strip().split(" ")))
@@ -42,14 +44,14 @@ class PokeTeam:
                 continue
 
             if sum(team) > 6:
-                print("Your team can consist of a maximum of 6 pokemons")
+                print("Your team can only consist of a maximum of 6 pokemons")
                 continue
             else:
                 break
 
-        self.assign_team(charm=team[0], bulb=team[1], squir=team[2])
+        self.assign_team(charm=team[0], bulb=team[1], squir=team[2], criterion=criterion)
 
-    def assign_team(self, charm: int, bulb: int, squir: int) -> None:
+    def assign_team(self, charm: int, bulb: int, squir: int, criterion: str = None) -> None:
         """
         Assigns the user's team with the inputted number of charmanders, bulbasaurs and squirtles.
         If the team has more than 6 pokemon, an exception is raised.
@@ -60,18 +62,69 @@ class PokeTeam:
         :return: None
         """
         if self.battle_mode == 0:
-            self.team = ArrayStack(6)
+
+            self.assign_set_mode_battle(charm, bulb, squir)
+
         elif self.battle_mode == 1:
-            pass
+
+            self.assign_rotating_mode_battle(charm, bulb, squir)
+
         elif self.battle_mode == 2:
-            pass
+
+            self.assign_optimised_mode_battle(charm, bulb, squir, criterion)
         else:
             raise ValueError("Unexpected battle mode type")
 
-        # for loop for pushing pokemons to self.team if team is not full
+    def assign_set_mode_battle(self, charm: int, bulb: int, squir: int) -> None:
+        """
+        Assigns the user's team with the desired number of pokemon in set mode battle format(Using a stack ADT)
+
+        :param charm: number of charmanders
+        :param bulb: number of bulbasaurs
+        :param squir: number of squirtles
+        :return: None
+        """
+
+        self.team = ArrayStack(6)
+        # for loop for pushing pokemons to self.team(Stack ADT) if team is not full
         [self.team.push(Squirtle()) for _ in range(squir) if not self.team.is_full()]
         [self.team.push(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.push(Charmander()) for _ in range(charm) if not self.team.is_full()]
+        
+
+    def assign_rotating_mode_battle(self, charm: int, bulb: int, squir: int) -> None:
+        """
+        Assigns the user's team with the desired number of pokemon in rotating mode battle format(Using a CircularQueue ADT)
+
+        :param charm: number of charmanders
+        :param bulb: number of bulbasaurs
+        :param squir: number of squirtles
+        :return: None
+        """
+        self.team = CircularQueue(6)
+        # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full 
+        [self.team.append(Squirtle()) for _ in range(squir) if not self.team.is_full()]
+        [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
+        [self.team.append(Charmander()) for _ in range(charm) if not self.team.is_full()]
+
+    def assign_optimised_mode_battle(self, charm: int, bulb: int, squir: int, criterion: str) -> None:
+        """
+        Assigns the user's team with the desired number of pokemon in optimised mode battle format(Using a SortedList ADT)
+
+        :pre: criterion is a valid string. Checked in Battle.optimised_mode_battle
+        :param charm: number of charmanders
+        :param bulb: number of bulbasaurs
+        :param squir: number of squirtles
+        :return: None
+        :raise Exception: if criterion is invalid
+        """
+        self.team = ArraySortedList(6)
+
+        [self.team.add(ListItem(Charmander(), Charmander().get_criterion(criterion))) for _ in range(charm)]
+        [self.team.add(ListItem(Bulbasaur(), Bulbasaur().get_criterion(criterion))) for _ in range(bulb)]
+        [self.team.add(ListItem(Squirtle(), Squirtle().get_criterion(criterion))) for _ in range(squir)]
+
+        self.team.sort()
 
     def __str__(self) -> str:
         string = []
@@ -97,12 +150,6 @@ class PokeTeam:
     def push(self, pokemon: PokemonBase) -> None:
         if self.team.__class__.__name__ == "ArrayStack":
             self.team.push(pokemon)
-        else:
-            raise Exception("Unknown data structure")
-
-    def peek(self) -> PokemonBase:
-        if self.team.__class__.__name__ == "ArrayStack":
-            return self.team.peek()
         else:
             raise Exception("Unknown data structure")
 

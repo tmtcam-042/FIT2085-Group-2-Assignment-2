@@ -17,7 +17,7 @@ from referential_array import ArrayR
 T = TypeVar('T')
 K = TypeVar('K')
 
-__author__ = 'Maria Garcia de la Banda and Brendon Taylor. Modified by Alexey Ignatiev'
+__author__ = 'Maria Garcia de la Banda and Brendon Taylor. Modified by Alexey Ignatiev and Thomas Cameron'
 __docformat__ = 'reStructuredText'
 
 class ListItem(Generic[T, K]):
@@ -135,7 +135,7 @@ class ArraySortedList(SortedList[T]):
         if self.is_full():
             raise Exception("List is full")
         try:
-            mark = len(self) - 1  # stores index of final element in list
+            mark = max(len(self) - 1, 0)  # stores index of final element in list. Max is used for case when list is empty
             while True:
                 self.array[mark + 1] = self.array[mark]
                 if mark == index:
@@ -152,13 +152,16 @@ class ArraySortedList(SortedList[T]):
             to the left.
             :pre: list is not empty
             :raises Exception: if index is out of bounds or list is not empty
+            :return: Item deleted
             """
         if self.is_empty():
             raise Exception("List is empty")
         try:
+            temp = self.array[index]
             for mark in range(index, len(self) - 1):
                 self.array[mark] = self.array[mark + 1]
             self.length -= 1
+            return temp
         except Exception as e:
             print(e)
 
@@ -190,7 +193,6 @@ class ArraySortedList(SortedList[T]):
     def sort(self) -> None:
         """ Sorts the list by key in non-increasing order.
             Algorithm used: Insertion sort
-            :pre: idk
         """
         n = self.length
         for mark in range(1,n):
@@ -232,3 +234,4 @@ if __name__ == "__main__":
     s_list.remove(potato)
     print(s_list)
     print(f"List length: {len(s_list)} after removing potato")
+
