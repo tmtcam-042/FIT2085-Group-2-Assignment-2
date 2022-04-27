@@ -100,6 +100,12 @@ class PokeTeam:
         else:
             raise Exception("Unknown data structure")
 
+    def peek(self) -> PokemonBase:
+        if self.team.__class__.__name__ == "ArrayStack":
+            return self.team.peek()
+        else:
+            raise Exception("Unknown data structure")
+
 
 if __name__ == "__main__":
     # ================= OUR TESTING =================
