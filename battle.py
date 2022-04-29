@@ -64,6 +64,8 @@ class Battle:
 
             pokemon1 = self.team1.team.serve()
             pokemon2 = self.team2.team.serve()
+            missingNo1 = None
+            missingNo2 = None
 
             # If the queue is not empty and Giratina is served then she gets put into temp variable
             if pokemon1.poke_type == "Unknown" and len(self.team1) > 1:
@@ -80,11 +82,15 @@ class Battle:
             if pokemon2.get_hp() > 0:
                 self.team2.team.append(pokemon2)
 
-            # if the length after the last Pokemon on the team has battled, then Giratina gets added back into the queue
-            if len(self.team1) == 0 and missingNo1.get_hp() > 0:
-                self.team1.team.append(missingNo1)
-            if len(self.team2) == 0 and missingNo2.get_hp() > 0:
-                self.team2.team.append(missingNo2)
+            # checks if Giratina exists and then executes
+            # if the length after the last Pokemon on the team has battled, then Giratina gets added back into the queue.
+            if(missingNo1 != None):
+                if len(self.team1) == 0 and missingNo1.get_hp() > 0:
+                    self.team1.team.append(missingNo1)
+
+            if (missingNo2 != None):
+                if len(self.team2) == 0 and missingNo2.get_hp() > 0:
+                    self.team2.team.append(missingNo2)
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -131,16 +137,20 @@ class Battle:
     def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase,) -> None:
         print(f"{self.team1.trainer_name} chooses {pokemon1.get_name()}")
         print(f"{self.team2.trainer_name} chooses {pokemon2.get_name()}")
+
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
             print(f"{pokemon1.get_name()} uses Attack!")
             print(f"{pokemon2.get_name()} uses Defend!")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
+
             if pokemon2.get_hp() > 0:
                 # if said pokemon is giratina and the randon num is 0, use superpower class
                 num = 0 # TODO: change this to make it random int
+
                 if pokemon2.poke_type == "Unknown" and num == 0:
                     pokemon2.superpower()
                 pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
+
             else:
                 pokemon1.set_level(pokemon1.get_level() + 1)
 
@@ -148,11 +158,14 @@ class Battle:
             print(f"{pokemon2.get_name()} uses Attack!")
             print(f"{pokemon1.get_name()} uses Defend!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
+
             if pokemon1.get_hp() > 0:
                 num = random.randint(0,3)
+
                 if pokemon2.poke_type == "Unknown" and num == 0:
                     pokemon2.superpower()
                 pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
+
             else:
                 pokemon2.set_level(pokemon2.get_level() + 1)
 
@@ -183,7 +196,7 @@ class Battle:
 if __name__ == "__main__":
     # ================= EXAMPLE APP EXECUTION =================
     b = Battle("Ash", "Gary")
-    print(b.set_mode_battle())
-    #print(b.rotating_mode_battle())
+    # print(b.set_mode_battle())
+    print(b.rotating_mode_battle())
     #print(b.optimised_mode_battle("hp", "lvl"))
 
