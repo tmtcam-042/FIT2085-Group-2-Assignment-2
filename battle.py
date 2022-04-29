@@ -1,3 +1,5 @@
+import random
+
 from pokemon_base import PokemonBase
 from poke_team import PokeTeam
 from sorted_list import ListItem
@@ -46,7 +48,7 @@ class Battle:
         else:
             return "DRAW"
 
-    def rotating_mode_battle(self) -> str:  # Task 4
+    def rotating_mode_battle(self) -> str:  # circular queues
         """
         Engages both teams in a battle in rotating battle mode   
         :return: string containing the winning team, or DRAW in case of a tie
@@ -56,13 +58,33 @@ class Battle:
         self.team2.choose_team(1)
 
         while len(self.team1) > 0 and len(self.team2) > 0:
+            # TODO: FOR TESTING PURPOSE ONLY
+            length1 = len(self.team1)
+            length2 = len(self.team2)
+
             pokemon1 = self.team1.team.serve()
             pokemon2 = self.team2.team.serve()
+
+            # If the queue is not empty and Giratina is served then she gets put into temp variable
+            if pokemon1.poke_type == "Unknown" and len(self.team1) > 1:
+                missingNo1 = pokemon1
+                pokemon1 = self.team1.team.serve()
+            if pokemon2.poke_type == "Unknown" and len(self.team2) > 1:
+                missingNo2 = pokemon2
+                pokemon2 = self.team2.team.serve()
+
             self.fight(pokemon1, pokemon2)
+
             if pokemon1.get_hp() > 0:
                 self.team1.team.append(pokemon1)
             if pokemon2.get_hp() > 0:
                 self.team2.team.append(pokemon2)
+
+            # if the length after the last Pokemon on the team has battled, then Giratina gets added back into the queue
+            if len(self.team1) == 0 and missingNo1.get_hp() > 0:
+                self.team1.team.append(missingNo1)
+            if len(self.team2) == 0 and missingNo2.get_hp() > 0:
+                self.team2.team.append(missingNo2)
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -106,25 +128,36 @@ class Battle:
         else:
             return "DRAW"
 
-    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase) -> None:
-        if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 retaliates
-            print(f"{pokemon1.get_name()} is faster than {pokemon2.get_name()}")
+    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase,) -> None:
+        print(f"{self.team1.trainer_name} chooses {pokemon1.get_name()}")
+        print(f"{self.team2.trainer_name} chooses {pokemon2.get_name()}")
+        if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
+            print(f"{pokemon1.get_name()} uses Attack!")
+            print(f"{pokemon2.get_name()} uses Defend!")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
             if pokemon2.get_hp() > 0:
+                # if said pokemon is giratina and the randon num is 0, use superpower class
+                num = 0 # TODO: change this to make it random int
+                if pokemon2.poke_type == "Unknown" and num == 0:
+                    pokemon2.superpower()
                 pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
             else:
                 pokemon1.set_level(pokemon1.get_level() + 1)
 
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
-            print(f"{pokemon1.get_name()} is slower than {pokemon2.get_name()}")
+            print(f"{pokemon2.get_name()} uses Attack!")
+            print(f"{pokemon1.get_name()} uses Defend!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
             if pokemon1.get_hp() > 0:
+                num = random.randint(0,3)
+                if pokemon2.poke_type == "Unknown" and num == 0:
+                    pokemon2.superpower()
                 pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
             else:
                 pokemon2.set_level(pokemon2.get_level() + 1)
 
         else:  # Both fight at same time!
-            print("Equal speeds!")
+            print("Both Pokemon attack!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))  # P1 takes damage
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))  # P2 takes damage
             # Check conditions.
@@ -150,7 +183,7 @@ class Battle:
 if __name__ == "__main__":
     # ================= EXAMPLE APP EXECUTION =================
     b = Battle("Ash", "Gary")
-    #print(b.set_mode_battle())
-    print(b.rotating_mode_battle())
+    print(b.set_mode_battle())
+    #print(b.rotating_mode_battle())
     #print(b.optimised_mode_battle("hp", "lvl"))
 

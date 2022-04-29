@@ -38,7 +38,7 @@ class Charmander(PokemonBase):
         elif opponent.get_poke_type() == "Grass":
             effective_damage = opponent.get_attack() * 0.5
         else:
-            raise Exception("Attacker type is not Fire, Water or Grass")
+            effective_damage = opponent.get_attack() * 1
 
         if effective_damage > self.get_defence():
             return effective_damage
@@ -76,7 +76,7 @@ class Bulbasaur(PokemonBase):
         elif opponent.get_poke_type() == "Grass":
             effective_damage = opponent.get_attack()
         else:
-            raise Exception("Attacker type is not Fire, Water or Grass")
+            effective_damage = opponent.get_attack() * 1
 
         if effective_damage > self.get_defence() + 5:
             return effective_damage
@@ -112,7 +112,7 @@ class Squirtle(PokemonBase):
         elif opponent.get_poke_type() == 'Grass':
             effective_damage = opponent.get_attack() * 2
         else:
-            raise Exception("Attacker type is not of Fire, Water or Grass type")
+            effective_damage = opponent.get_attack() * 1
 
         if effective_damage > self.get_defence() * 2:
             return effective_damage

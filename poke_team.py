@@ -1,3 +1,4 @@
+from missing_no import MissingNo
 from pokemon import Charmander, Bulbasaur, Squirtle
 from pokemon_base import PokemonBase
 from stack_adt import ArrayStack
@@ -32,24 +33,28 @@ class PokeTeam:
         choose_team_details = (f"Howdy {self.trainer_name}! Choose your team as C B S\n"
                                "where C is the number of Charmanders\n"
                                "      B is the number of Bulbasaurs\n"
-                               "      S is the number of Squirtles\n")
-        team = [0, 0, 0]  # updated below
+                               "      S is the number of Squirtles\n"
+                               "      M is the number of Unknown Pokémon\n")
+        team = [0, 0, 0, 0]  # updated below
+
         while True:
             try:
                 team = list(map(int, input(choose_team_details).strip().split(" ")))
             except Exception as e:
                 print(e)
                 continue
-
             if sum(team) > 6:
                 print("Your team can only consist of a maximum of 6 pokemons")
+                continue
+            elif team[3] > 1:
+                print("Your team can only consist of a maximum of 1 missing pokemon")
                 continue
             else:
                 break
 
-        self.assign_team(charm=team[0], bulb=team[1], squir=team[2], criterion=criterion)
+        self.assign_team(charm=team[0], bulb=team[1], squir=team[2], missN=team[3], criterion=criterion)
 
-    def assign_team(self, charm: int, bulb: int, squir: int, criterion: str = None) -> None:
+    def assign_team(self, charm: int, bulb: int, squir: int, missN: int, criterion: str = None) -> None:
         """
         Assigns the user's team with the inputted number of charmanders, bulbasaurs and squirtles.
         If the team has more than 6 pokemon, an exception is raised.
@@ -61,19 +66,19 @@ class PokeTeam:
         """
         if self.battle_mode == 0:
 
-            self.assign_set_mode_battle(charm, bulb, squir)
+            self.assign_set_mode_battle(charm, bulb, squir, missN)
 
         elif self.battle_mode == 1:
 
-            self.assign_rotating_mode_battle(charm, bulb, squir)
+            self.assign_rotating_mode_battle(charm, bulb, squir, missN)
 
         elif self.battle_mode == 2:
 
-            self.assign_optimised_mode_battle(charm, bulb, squir, criterion)
+            self.assign_optimised_mode_battle(charm, bulb, squir, missN, criterion)
         else:
             raise ValueError("Unexpected battle mode type")
 
-    def assign_set_mode_battle(self, charm: int, bulb: int, squir: int) -> None:
+    def assign_set_mode_battle(self, charm: int, bulb: int, squir: int, missN: int) -> None:
         """
         Assigns the user's team with the desired number of pokemon in set mode battle format(Using a stack ADT)
 
@@ -84,12 +89,13 @@ class PokeTeam:
         """
 
         self.team = ArrayStack(6)
+        [self.team.push(MissingNo()) for _ in range(missN) if not self.team.is_full()]
         # for loop for pushing pokemons to self.team(Stack ADT) if team is not full
         [self.team.push(Squirtle()) for _ in range(squir) if not self.team.is_full()]
         [self.team.push(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.push(Charmander()) for _ in range(charm) if not self.team.is_full()]
 
-    def assign_rotating_mode_battle(self, charm: int, bulb: int, squir: int) -> None:
+    def assign_rotating_mode_battle(self, charm: int, bulb: int, squir: int, missN: int) -> None:
         """
         Assigns the user's team with the desired number of pokemon in rotating mode battle format(Using a CircularQueue ADT)
 
@@ -99,12 +105,13 @@ class PokeTeam:
         :return: None
         """
         self.team = CircularQueue(6)
-        # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full 
+        # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
+        [self.team.append(MissingNo()) for _ in range(missN) if not self.team.is_full()]
         [self.team.append(Charmander()) for _ in range(charm) if not self.team.is_full()]
         [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.append(Squirtle()) for _ in range(squir) if not self.team.is_full()]
 
-    def assign_optimised_mode_battle(self, charm: int, bulb: int, squir: int, criterion: str) -> None:
+    def assign_optimised_mode_battle(self, charm: int, bulb: int, squir: int, missN: int, criterion: str) -> None:
         """
         Assigns the user's team with the desired number of pokemon in optimised mode battle format(Using a SortedList ADT)
 
@@ -122,8 +129,8 @@ class PokeTeam:
         [self.team.add(ListItem(Squirtle(), Squirtle().get_criterion(criterion))) for _ in range(squir)]
 
         self.team.sort()
-
-        # add Giratina here 
+        # add MissingNo here
+        [self.team.add(ListItem(MissingNo(), MissingNo().get_criterion(criterion))) for _ in range(missN)]
 
     def __str__(self) -> str:
         string = []
@@ -173,6 +180,6 @@ if __name__ == "__main__":
     # ================= OUR TESTING =================
     poketeam = PokeTeam("Ash")
     poketeam.choose_team(1, None)
-    print(poketeam)
+
     print(poketeam)
 
