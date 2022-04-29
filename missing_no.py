@@ -6,8 +6,9 @@ from pokemon_base import PokemonBase
 class MissingNo(GlitchMon):
     def __init__(self):
         averageHp = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
+
         GlitchMon.__init__(self, averageHp, "Unknown")
-        self.name = 'Giratina'
+        self.name = 'MissingNo'
         self.attack = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
         self.defence = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
         self.speed = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)

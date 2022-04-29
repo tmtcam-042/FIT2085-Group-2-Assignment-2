@@ -37,8 +37,12 @@ class Battle:
             self.fight(pokemon1, pokemon2)
             if pokemon1.get_hp() > 0:
                 self.team1.push(pokemon1)
+                if pokemon2.get_hp() <= 0:
+                    print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
                 self.team2.push(pokemon2)
+                if pokemon1.get_hp() <= 0:
+                    print(f"{pokemon1.get_name()} is unable to battle!\n")
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -58,10 +62,6 @@ class Battle:
         self.team2.choose_team(1)
 
         while len(self.team1) > 0 and len(self.team2) > 0:
-            # TODO: FOR TESTING PURPOSE ONLY
-            length1 = len(self.team1)
-            length2 = len(self.team2)
-
             pokemon1 = self.team1.team.serve()
             pokemon2 = self.team2.team.serve()
             missingNo1 = None
@@ -79,8 +79,14 @@ class Battle:
 
             if pokemon1.get_hp() > 0:
                 self.team1.team.append(pokemon1)
+                if pokemon2.get_hp() <= 0:
+                    print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
                 self.team2.team.append(pokemon2)
+                if pokemon1.get_hp() <= 0:
+                    print(f"{pokemon1.get_name()} is unable to battle!\n")
+            if pokemon1.get_hp() <= 0 and pokemon2.get_hp() <= 0:
+                print(f"Both pokemon are unable to battle!\n")
 
             # checks if Giratina exists and then executes
             # if the length after the last Pokemon on the team has battled, then Giratina gets added back into the queue.
@@ -118,10 +124,15 @@ class Battle:
             pokemon2 = self.team2.remove()
 
             self.fight(pokemon1, pokemon2)
+
             if pokemon1.get_hp() > 0:
                 self.team1.team[0] = ListItem(pokemon1, pokemon1.get_criterion(criterion_team1))  # Re-insert pokemon into head of list
+                if pokemon2.get_hp() <= 0:
+                    print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
                 self.team2.team[0] = ListItem(pokemon2, pokemon2.get_criterion(criterion_team2))
+                if pokemon1.get_hp() <= 0:
+                    print(f"{pokemon1.get_name()} is unable to battle!\n")
 
             self.team1.team.sort()
             self.team2.team.sort()
@@ -140,7 +151,6 @@ class Battle:
 
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
             print(f"{pokemon1.get_name()} uses Attack!")
-            print(f"{pokemon2.get_name()} uses Defend!")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
 
             if pokemon2.get_hp() > 0:
@@ -156,7 +166,6 @@ class Battle:
 
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
             print(f"{pokemon2.get_name()} uses Attack!")
-            print(f"{pokemon1.get_name()} uses Defend!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
 
             if pokemon1.get_hp() > 0:

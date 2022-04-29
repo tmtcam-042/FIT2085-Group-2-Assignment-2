@@ -30,7 +30,7 @@ class PokeTeam:
         else:
             self.battle_mode = battle_mode
 
-        choose_team_details = (f"Howdy {self.trainer_name}! Choose your team as C B S\n"
+        choose_team_details = (f"Howdy {self.trainer_name}! Choose your team as C B S M\n"
                                "where C is the number of Charmanders\n"
                                "      B is the number of Bulbasaurs\n"
                                "      S is the number of Squirtles\n"

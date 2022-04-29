@@ -35,6 +35,7 @@ class Charmander(PokemonBase):
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == "Water":
             effective_damage = opponent.get_attack() * 2
+            print("Water was effective on " + self.name + "!")
         elif opponent.get_poke_type() == "Grass":
             effective_damage = opponent.get_attack() * 0.5
         else:
@@ -44,6 +45,7 @@ class Charmander(PokemonBase):
             return effective_damage
         else:
             return effective_damage // 2
+            print(self.name + "dodged it!")
 
 
 class Bulbasaur(PokemonBase):
@@ -71,6 +73,7 @@ class Bulbasaur(PokemonBase):
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
+            print("Fire was effective on " + self.name + "!")
         elif opponent.get_poke_type() == "Water":
             effective_damage = opponent.get_attack() * 0.5
         elif opponent.get_poke_type() == "Grass":
@@ -82,6 +85,7 @@ class Bulbasaur(PokemonBase):
             return effective_damage
         else:
             return effective_damage // 2
+            print(self.name + "dodged it!")
 
 
 class Squirtle(PokemonBase):
@@ -111,6 +115,7 @@ class Squirtle(PokemonBase):
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == 'Grass':
             effective_damage = opponent.get_attack() * 2
+            print("Grass was effective on " + self.name + "!")
         else:
             effective_damage = opponent.get_attack() * 1
 
@@ -118,6 +123,7 @@ class Squirtle(PokemonBase):
             return effective_damage
         else:
             return effective_damage // 2
+            print(self.name + "dodged it!")
 
 
 if __name__ == '__main__':
