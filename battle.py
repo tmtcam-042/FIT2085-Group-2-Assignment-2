@@ -23,13 +23,6 @@ class Battle:
         self.team1.choose_team()
         self.team2.choose_team()
 
-        # Pretend the matchup bit is working
-
-        # This is all inside some sort of loop:
-        #   NOTE: to get a pokemon from a stack, pop it off
-        #   once fighting is finished, push it back for the winning team
-        #   Never leave it hanging in the scope
-
         # FIGHT
         while len(self.team1) > 0 and len(self.team2) > 0:
             pokemon1 = self.team1.remove()
@@ -145,7 +138,7 @@ class Battle:
         else:
             return "DRAW"
 
-    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase,) -> None:
+    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase) -> None:
         print(f"{self.team1.trainer_name} chooses {pokemon1.get_name()}")
         print(f"{self.team2.trainer_name} chooses {pokemon2.get_name()}")
 
