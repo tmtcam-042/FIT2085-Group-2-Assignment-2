@@ -1,8 +1,6 @@
 import random
-
 from pokemon_base import PokemonBase
 from poke_team import PokeTeam
-from sorted_list import ListItem
 
 
 class Battle:
@@ -42,8 +40,8 @@ class Battle:
         :complexity: O(n) worst and best case, where n is max(len(self.team1), len(self.team2))
         :return: string containing the winning team, or DRAW in case of a tie
         """
-        self.set_battle_mode_to(0)
-        self.team1.choose_team()
+        self.set_battle_mode_to(0) # Battle mode 0 = set mode battle
+        self.team1.choose_team() # Call choose_team, which prompts user for team values and assigns accordingly
         self.team2.choose_team()
 
         # FIGHT
@@ -79,20 +77,20 @@ class Battle:
         :return: string containing the winning team, or DRAW in case of a tie
         """
 
-        self.set_battle_mode_to(1)
-        self.team1.choose_team(1)
+        self.set_battle_mode_to(1) # Battle mode 1 = rotating mode battle
+        self.team1.choose_team(1) # Call choose_team, which prompts user for team values and then assigns accordingly
         self.team2.choose_team(1)
 
-        while len(self.team1) > 0 and len(self.team2) > 0:
+        while len(self.team1) > 0 and len(self.team2) > 0: # Fighting continues until one team is empty
 
-            pokemon1 = self.team1.team.serve()
+            pokemon1 = self.team1.team.serve() # Remove the iteam at the head of each list
             pokemon2 = self.team2.team.serve()
 
-            self.fight(pokemon1, pokemon2)
+            self.fight(pokemon1, pokemon2) # The two pokemon fight, modifying their hp and level accordingly
 
-            if pokemon1.get_hp() > 0:
+            if pokemon1.get_hp() > 0: # If pokemon 1 is still alive, push it back to the team
                 self.team1.push(pokemon1)
-            if pokemon2.get_hp() > 0:
+            if pokemon2.get_hp() > 0: # If pokemon 2 is still alive, push it back to the team
                 self.team2.push(pokemon2)
 
         # Return winner or draw
@@ -125,29 +123,26 @@ class Battle:
         criterion_team1 = criterion_team1.lower()
         criterion_team2 = criterion_team2.lower()
 
-        self.set_battle_mode_to(2)
-        self.team1.choose_team(self.battle_mode, criterion_team1)
+        self.set_battle_mode_to(2) # 2 = optimised battle mode
+        self.team1.choose_team(self.battle_mode, criterion_team1) # Call choose_team, which prompts user for team values and then assigns accordingly
         self.team2.choose_team(self.battle_mode, criterion_team2)
 
         # FIGHT
-        while len(self.team1) > 0 and len(self.team2) > 0:
+        while len(self.team1) > 0 and len(self.team2) > 0: # Fighting continues until one team is empty
 
             pokemon1 = self.team1.remove()  # Remove the item at the head of each list
             pokemon2 = self.team2.remove()
 
-            self.fight(pokemon1, pokemon2)
+            self.fight(pokemon1, pokemon2) # The two pokemon fight, modifying their hp and level accordingly
 
-            if pokemon1.get_hp() > 0:
+            if pokemon1.get_hp() > 0: # If pokemon 1 is still alive, push it back to the team
                 self.team1.push(pokemon1, criterion_team1)
                 if pokemon2.get_hp() <= 0:
                     print(f"{pokemon2.get_name()} is unable to battle!\n")
-            if pokemon2.get_hp() > 0:
+            if pokemon2.get_hp() > 0: # If pokemon 2 is still alive, push it back to the team
                 self.team2.push(pokemon2, criterion_team2)
                 if pokemon1.get_hp() <= 0:
                     print(f"{pokemon1.get_name()} is unable to battle!\n")
-
-
-
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -189,17 +184,17 @@ class Battle:
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
             print(f"{pokemon2.get_name()} uses Attack!")
             print(f"{pokemon1.get_name()} uses Defend!")
-            pokemon1.got_hurt_by(pokemon2)
+            pokemon1.got_hurt_by(pokemon2) # Pokemon 2 deals damage to pokemon 1
 
             if pokemon1.get_hp() > 0:
                 num = random.randint(0,3)
                 if pokemon2.poke_type == "Unknown" and num == 0: # 25% chance for superpower to trigger
                     pokemon2.superpower()  # MissingNo's special power goes off! Woahhhh
 
-                pokemon2.got_hurt_by(pokemon1)
+                pokemon2.got_hurt_by(pokemon1) # Pokemon 1 deals damage to pokemon 2
 
             else:
-                pokemon2.level_up()
+                pokemon2.level_up() # If Pokemon 1 has died, pokemon 2 levels up!
 
         else:  # Both fight at same time!
             print("Both Pokemon attack!")
@@ -214,9 +209,9 @@ class Battle:
                 if pokemon1.get_hp() > 0 and pokemon2.get_hp() > 0: # If both pokemon are still alive
                     pass
                 elif pokemon1.get_hp() > 0:
-                    pokemon1.level_up()
+                    pokemon1.level_up() # Pokemon 2 has fainted, pokemon 1 levels up!
                 else:
-                    pokemon2.level_up()
+                    pokemon2.level_up() # Pokemon 1 has fainted, pokemon 2 levels up!
 
             elif pokemon1.get_hp() > 0:  # P1 lived and P2 didn't
                 pokemon1.level_up()

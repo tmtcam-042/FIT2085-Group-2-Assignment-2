@@ -204,7 +204,7 @@ class PokeTeam:
 
     def push(self, pokemon: PokemonBase) -> None:
         """
-        normalisedd method to add pokemons to the user's team
+        normalised method to add pokemons to the user's team
         :param pokemon: pokemon to be added to the user's team
         :complexity: ArrayStack and CircularQueue have O(1) complexity
                      ArraySortedList has O(n) complexity, where n is the length of the list
@@ -214,11 +214,4 @@ class PokeTeam:
         else:
             raise Exception("Unknown data structure")
 
-
-if __name__ == "__main__":
-    # ================= OUR TESTING =================
-    poketeam = PokeTeam("Ash")
-    poketeam.choose_team(1, None)
-
-    print(poketeam)
 
