@@ -58,9 +58,9 @@ class Charmander(PokemonBase):
             raise Exception("Attacker type is not Fire, Water or Grass or Unknown")
 
         if effective_damage > self.get_defence():
-            return effective_damage
+            return int(effective_damage)
         else:
-            return effective_damage // 2
+            return int(effective_damage // 2)
 
 
 class Bulbasaur(PokemonBase):
@@ -116,9 +116,9 @@ class Bulbasaur(PokemonBase):
             raise Exception("Attacker type is not Fire, Water or Grass or Unknown")
 
         if effective_damage > self.get_defence() + 5:
-            return effective_damage
+            return int(effective_damage)
         else:
-            return effective_damage // 2
+            return int(effective_damage // 2)
 
 
 class Squirtle(PokemonBase):
@@ -178,4 +178,8 @@ class Squirtle(PokemonBase):
         else:
             return int(effective_damage // 2)
 
+if __name__ == '__main__':
+    print(Charmander().calculate_damage_taken(Charmander()))
+    print(Bulbasaur().calculate_damage_taken(Charmander()))
+    print(Squirtle().calculate_damage_taken(Charmander()))
 
