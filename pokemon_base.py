@@ -1,3 +1,21 @@
+"""Notes:
+Needs 'from abc import ABC, abstractmethod' see - week 6 content
+for abstract base classes.
+Probably also needs import TypeVAR, Generic for runtime type hints
+and generic class types? Unsure, bit shaky on these concepts
+
+So opening is imports, T = TypeVar('T') etc, then
+class PokemonBase(ABC, Generic[T]) <- still have no real idea what generic does
+then def __init__(self, int: hp, ???: poke_type): (what datatype is poke_type?)
+etc
+
+NOTES from assignemnt specs to follow:
+Preconditions must be checked in abstract methods if possible.
+The docstring for each method must contain best and worst-case complexity.
+We must add at least 1 unit test for each method in a file named
+test_pokemon_base.py, NOT adding to task1_tester.py (though won't be penalised
+if we do)"""
+
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
@@ -95,6 +113,8 @@ class PokemonBase(ABC, Generic[T]):
         pass
 
     def got_hurt_by(self, other_pokemon: T) -> None:
+        """ calculates the HP after the pokemon has sustained damage
+        :param: other_pokemon: the opponent"""
         self.set_hp(self.hp - self.calculate_damage_taken(other_pokemon))
 
     def __str__(self) -> str:

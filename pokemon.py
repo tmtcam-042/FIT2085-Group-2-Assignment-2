@@ -1,9 +1,6 @@
 """
-Each of these classes inherits PokemonBase, so needs line
-from pokemon_base import PokemonBase, T <- just going off wk6 example
-Each class has to also init PokemonBase, so init looks like:
-def __init__(self, etc) -> None:
-    PokemonBase.__init__(self, etcetc)
+Class that inherits PokemonBase class which allows to instantise each pokemon
+with their respective attributes
 """
 from pokemon_base import PokemonBase
 
@@ -16,21 +13,32 @@ class Charmander(PokemonBase):
         self.speed = 7 + self.level
 
     def get_name(self) -> str:
+        """ Gets Charmander's name
+        return: the name string """
         return self.name
 
     def get_attack(self) -> int:
+        """ gets the attack value of Charmander which depends on its level
+         return: attack integer """
         self.attack = 6 + self.level
         return self.attack
 
     def get_defence(self) -> int:
+        """ gets the defence value of Charmander
+        return: defence integer """
         self.defence = 4
         return self.defence
 
     def get_speed(self) -> int:
+        """ gets the speed value of Charmander
+        return: speed integer """
         self.speed = 7 + self.level
         return self.speed
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
+        """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
+        :raises Exception: if the opponent's type is not of the ones listed in the checking statements
+        return: the damage integer caused by the opponent  """
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == "Water":
