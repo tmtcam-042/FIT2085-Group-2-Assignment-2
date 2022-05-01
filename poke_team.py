@@ -24,6 +24,9 @@ class PokeTeam:
         :param battle_mode: the battle mode of the battle between two teams
         :param criterion: Used in optimised battle mode to determine criterion to sort by
         return: None
+        :complexity: ArraySortedList:   O(m*n)  where m is the length of the current list n is number of pokemons
+                     CircularQueue:     O(n)    where n is the number of pokemons to be added
+                     ArrayStack:        O(n)    where n is the number of pokemons to be added
         """
         # Set battle team
         if battle_mode > 2 or battle_mode < 0:
@@ -90,6 +93,7 @@ class PokeTeam:
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
         :return: None
+        :complexity: O(n) where n is the number of pokemons to be added
         """
 
         self.team = ArrayStack(6)
@@ -107,6 +111,7 @@ class PokeTeam:
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
         :return: None
+        :complexity: O(n) where n is the number of pokemons to be added
         """
         self.team = CircularQueue(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
@@ -124,7 +129,7 @@ class PokeTeam:
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
         :return: None
-        :raise Exception: if criterion is invalid
+        :complexity: O(m*n) where n is the number of pokemons to be added and m is the length of the current list
         """
         self.team = ArraySortedList(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
@@ -137,15 +142,20 @@ class PokeTeam:
         [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
 
     def __str__(self) -> str:
+        """
+        overrides default str() method to return the user's team
+        """
+        # hold an array of pokemon details
         string = []
-        # returning the user's team selection
-
+        # Depending on the ADT, the method for getting the pokemon instances is different
         if self.team.__class__.__name__ == "ArrayStack":
-            initial_length = self.team.length
+            initial_length = self.team.length # keeping track of initial length
+            # for loop to append pokemon details to strings
             for i in range(len(self)):
+                # call the __str__ method of the specific pokemon
                 string.append(str(self.team.peek()))
                 self.team.length -= 1
-            self.team.length = initial_length
+            self.team.length = initial_length   # restore the initial length
 
         elif self.team.__class__.__name__ == "CircularQueue":
             for i in range(len(self)):
@@ -160,9 +170,15 @@ class PokeTeam:
         return ", ".join(string)
 
     def __len__(self) -> int:
+        """
+        overrides default len() method to return the number of pokemon in the user's team
+        """
         return self.team.length
 
     def remove(self) -> PokemonBase:
+        """
+        generalized method to remove pokemons from the user's team
+        """
         if self.team.__class__.__name__ == "ArrayStack":
             return self.team.pop()
         elif self.team.__class__.__name__ == "CircularQueue":
