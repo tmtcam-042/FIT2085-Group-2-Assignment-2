@@ -8,14 +8,13 @@ Group github repo for Group 2, FIT2085
  - [x] Pokemon.py
  - [x] Pokemon_base.py
  - [x] test_pokemon
+ - [x] Game.py
 
 
 ### Files to do:
- - [ ] Game.py
  - [ ] Poke_team.py
  - [ ] commenting on tester files
 
 
 ### Files still to create test_file for:
- - [ ] test_game
  - [ ] test_pokemon_base
