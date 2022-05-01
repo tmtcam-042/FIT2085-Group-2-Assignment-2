@@ -178,8 +178,4 @@ class Squirtle(PokemonBase):
         else:
             return int(effective_damage // 2)
 
-if __name__ == '__main__':
-    print(Charmander().calculate_damage_taken(Charmander()))
-    print(Bulbasaur().calculate_damage_taken(Charmander()))
-    print(Squirtle().calculate_damage_taken(Charmander()))
 

@@ -1,8 +1,6 @@
 from pokemon import Charmander, Bulbasaur, Squirtle
 import unittest
-
-from pokemon_base import PokemonBase
-from tester_base import TesterBase, captured_output
+from tester_base import TesterBase
 
 class TestPokemon(TesterBase):
     def test_init(self):
