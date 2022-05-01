@@ -14,13 +14,15 @@ __docformat__ = 'reStructuredText'
 class GlitchMon(PokemonBase):
     """ Abstract class for Missing No Pokémon """
     def __init__(self, hp: int, poke_type: str):
-        """ initalises the arguments from PokemonBase """
+        """ initalises the arguments from PokemonBase
+        :complexity: O(1) """
         PokemonBase.__init__(self, hp, poke_type)
 
     @abstractmethod
     def increaseHp(self) -> int:
         """ abstract method that increases the HP integer
-        of the pokemon """
+        of the pokemon
+        :complexity: O(1) """
         pass
 
     def superPower(self) -> str:
@@ -28,6 +30,7 @@ class GlitchMon(PokemonBase):
         determine if Glitchmon should level up, increase HP or both
 
         return: the string that indicates which powerup MissingNo has used
+        :complexity: O(1)
         """
         num = random.randint(0, 2)
         if num == 0:
