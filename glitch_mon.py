@@ -8,7 +8,6 @@ class GlitchMon(PokemonBase):
     def __init__(self, hp: int, poke_type: str):
         PokemonBase.__init__(self, hp, poke_type)
 
-    # TODO: confirm with team which is abstract which is not
     @abstractmethod
     def increaseHp(self) -> int:
         pass

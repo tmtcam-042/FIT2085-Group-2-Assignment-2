@@ -1,13 +1,13 @@
 import unittest
-
 from tester_base import TesterBase, captured_output
+from glitch_mon import GlitchMon
 
-class TestTask6(TesterBase):
+class GlitchMonTester(TesterBase):
 
-    def test_limit(self):
-        from poke_team import PokeTeam
+    def test_glitch_mon(self):
+        from glitch_mon import GlitchMon
         try:
-            team = PokeTeam("Ash")
+            MissingNo = GlitchMon()
         except Exception as e:
             self.verificationErrors.append(f"Ash's team could not be instantiated: {str(e)}.")
             return
