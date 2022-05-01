@@ -4,20 +4,21 @@ Group github repo for Group 2, FIT2085
 
 ### Files finished:
 
--   [x] Battle.py
--   [x] Glitch_mon.py
--   [x] Missing_no.py
--   [x] Pokemon.py
--   [x] Pokemon_base.py
--   [x] test_pokemon
--   [x] Game.py
+- [x] Battle.py
+- [x] Glitch_mon.py
+- [x] Missing_no.py
+- [x] Pokemon.py
+- [x] Pokemon_base.py
+- [x] test_pokemon
+- [x] Game.py
 
--   [x] Battle.py
--   [x] Glitch_mon.py
--   [x] Missing_no.py
--   [x] Pokemon.py
--   [x] Pokemon_base.py
--   [x] test_pokemon
+- [x] Battle.py
+- [x] Glitch_mon.py
+- [x] Missing_no.py
+- [x] Pokemon.py
+- [x] Pokemon_base.py
+- [x] test_pokemon
+- [X] test_pokemon_base
 
 ### Files to do:
 
@@ -29,5 +30,3 @@ Group github repo for Group 2, FIT2085
 -   [ ] commenting on tester files
 
 ### Files still to create test_file for:
-
--   [ ] test_pokemon_base
