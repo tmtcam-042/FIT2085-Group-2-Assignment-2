@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import random
 from typing import TypeVar, Generic
 
 T = TypeVar('T')
@@ -97,7 +98,12 @@ class PokemonBase(ABC, Generic[T]):
     def got_hurt_by(self, other_pokemon: T) -> None:
         """ calculates the HP after the pokemon has sustained damage
         :param: other_pokemon: the opponent"""
-        self.set_hp(self.hp - self.calculate_damage_taken(other_pokemon))
+        self.calculate_damage_taken(other_pokemon)
+        newHp = self.get_hp() - self.calculate_damage_taken(other_pokemon)
+        self.set_hp(newHp)
+        num = random.randint(0, 3)
+        if self.poke_type == "Unknown" and num == 0:
+            self.superpower()
 
     def __str__(self) -> str:
         """  Magic method constructing a string representation the pokemon's name, HP and level """

@@ -168,16 +168,15 @@ class Battle:
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
             print(f"{pokemon1.get_name()} uses Attack!")
             print(f"{pokemon2.get_name()} uses Defend!")
+            # pokemon2 takes damage
             pokemon2.got_hurt_by(pokemon1)
 
+            # if pokemon2 is still conscious
             if pokemon2.get_hp() > 0:
-                # if said pokemon is giratina and the randon num is 0, use superpower class
-                num = 0 # TODO: change this to make it random int
-
-                if pokemon2.poke_type == "Unknown" and num == 0:
-                    pokemon2.superpower()
+                # if said pokemon2 is still conscious it then attacks pokemon1
                 pokemon1.got_hurt_by(pokemon2)
-
+                if pokemon1.get_hp() <= 0: # if pokemon1 has fainted
+                    pokemon2.level_up()
             else:
                 pokemon1.level_up()
 
@@ -186,13 +185,10 @@ class Battle:
             print(f"{pokemon1.get_name()} uses Defend!")
             pokemon1.got_hurt_by(pokemon2) # Pokemon 2 deals damage to pokemon 1
 
-            if pokemon1.get_hp() > 0:
-                num = random.randint(0,3)
-                if pokemon2.poke_type == "Unknown" and num == 0: # 25% chance for superpower to trigger
-                    pokemon2.superpower()  # MissingNo's special power goes off! Woahhhh
-
-                pokemon2.got_hurt_by(pokemon1) # Pokemon 1 deals damage to pokemon 2
-
+            if pokemon1.get_hp() > 0: # if pokemon1 is still conscious it will hit back
+                pokemon2.got_hurt_by(pokemon1)
+                if pokemon2.get_hp() <= 0: # if pokemon2 has fainted
+                    pokemon1.level_up()
             else:
                 pokemon2.level_up() # If Pokemon 1 has died, pokemon 2 levels up!
 
