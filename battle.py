@@ -173,7 +173,6 @@ class Battle:
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
             print(f"{pokemon1.get_name()} uses Attack!")
             print(f"{pokemon2.get_name()} uses Defend!")
-            # pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
             pokemon2.got_hurt_by(pokemon1)
 
             if pokemon2.get_hp() > 0:
@@ -182,39 +181,37 @@ class Battle:
 
                 if pokemon2.poke_type == "Unknown" and num == 0:
                     pokemon2.superpower()
-                # pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
                 pokemon1.got_hurt_by(pokemon2)
 
             else:
-                pokemon1.set_level(pokemon1.get_level() + 1)
+                pokemon1.level_up()
 
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
             print(f"{pokemon2.get_name()} uses Attack!")
             print(f"{pokemon1.get_name()} uses Defend!")
-            # pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
             pokemon1.got_hurt_by(pokemon2)
 
             if pokemon1.get_hp() > 0:
                 num = random.randint(0,3)
+                if pokemon2.poke_type == "Unknown" and num == 0: # 25% chance for superpower to trigger
+                    pokemon2.superpower()  # MissingNo's special power goes off! Woahhhh
 
-                if pokemon2.poke_type == "Unknown" and num == 0:
-                    pokemon2.superpower()
-                # pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
                 pokemon2.got_hurt_by(pokemon1)
 
             else:
-                # pokemon2.set_level(pokemon2.get_level() + 1)
                 pokemon2.level_up()
 
         else:  # Both fight at same time!
             print("Both Pokemon attack!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))  # P1 takes damage
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))  # P2 takes damage
+
             # Check conditions.
-            if pokemon1.get_hp() > 0 and pokemon2.get_hp() > 0:  # Did both survive mutual clash
+            if pokemon1.get_hp() > 0 and pokemon2.get_hp() > 0:  # Did both survive mutual clash?
                 pokemon1.set_hp(pokemon1.get_hp() - 1)  # Both lose 1 hp for the sin of surviving
                 pokemon2.set_hp(pokemon2.get_hp() - 1)
-                if pokemon1.get_hp() > 0 and pokemon2.get_hp() > 0:
+
+                if pokemon1.get_hp() > 0 and pokemon2.get_hp() > 0: # If both pokemon are still alive
                     pass
                 elif pokemon1.get_hp() > 0:
                     pokemon1.level_up()

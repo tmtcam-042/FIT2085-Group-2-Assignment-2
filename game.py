@@ -26,6 +26,7 @@ elif battle_mode == 2:
     criterion1 = None
     criterion2 = None
 
+    # Checking pre-conditions for optimised battle mode
     while criterion1 not in ["lvl", "hp", "attack", "defence", "speed"]:
         criterion1 = input(f"Input {team1_name}'s criteria: lvl, hp, attack, defence, speed: ").lower()
 
