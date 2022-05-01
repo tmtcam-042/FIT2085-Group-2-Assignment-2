@@ -21,7 +21,7 @@ class MissingNo(GlitchMon):
         self.defence = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
         self.speed = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
 
-    def increaseHp(self) -> int:
+    def increase_hp(self) -> int:
         """ Increases the pokemon's HP by one increment
         :complexity: O(1) """
         self.set_hp(self.get_hp() + 1)

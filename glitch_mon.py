@@ -19,7 +19,7 @@ class GlitchMon(PokemonBase):
         PokemonBase.__init__(self, hp, poke_type)
 
     @abstractmethod
-    def increaseHp(self) -> int:
+    def increase_hp(self) -> int:
         """ abstract method that increases the HP integer
         of the pokemon
         :complexity: O(1) """
@@ -38,12 +38,12 @@ class GlitchMon(PokemonBase):
             output = self.get_name() + " leveled up!"
             return output
         elif num == 1:
-            self.increaseHp()
+            self.increase_hp()
             output = self.get_name() + " increased HP!"
             return output
 
         else:
             self.level_up()
-            self.increaseHp()
+            self.increase_hp()
             output = self.get_name() + " leveled up and increased HP!"
             return output
