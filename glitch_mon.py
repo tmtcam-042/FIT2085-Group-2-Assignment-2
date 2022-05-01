@@ -44,5 +44,3 @@ class GlitchMon(PokemonBase):
             self.increaseHp()
             output = self.get_name() + " leveled up and increased HP!"
             return output
-
-

@@ -28,5 +28,5 @@ class TestTask6(TesterBase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTask4)
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestTask6)
     unittest.TextTestRunner(verbosity=0).run(suite)

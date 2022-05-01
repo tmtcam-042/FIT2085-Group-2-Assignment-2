@@ -218,8 +218,8 @@ class Battle:
 if __name__ == "__main__":
     # ================= EXAMPLE APP EXECUTION =================
     b = Battle("Ash", "Gary")
-    # print(b.set_mode_battle())
-    print(b.rotating_mode_battle())
+    print(b.set_mode_battle())
+    # print(b.rotating_mode_battle())
     #print(b.optimised_mode_battle("hp", "lvl"))
 
 
