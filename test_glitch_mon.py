@@ -1,6 +1,5 @@
 import unittest
-from tester_base import TesterBase, captured_output
-from glitch_mon import GlitchMon
+from tester_base import TesterBase
 
 class GlitchMonTester(TesterBase):
 
