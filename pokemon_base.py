@@ -99,7 +99,7 @@ class PokemonBase(ABC, Generic[T]):
         """ calculates the HP after the pokemon has sustained damage
         :param: other_pokemon: the opponent"""
         self.set_hp(self.get_hp() - self.calculate_damage_taken(other_pokemon))
-        num = 0
+        num = random.randint(0,3)
         if self.poke_type == "Unknown" and num == 0:
             self.superpower()
 
