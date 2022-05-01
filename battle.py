@@ -8,7 +8,9 @@ from sorted_list import ListItem
 class Battle:
     def __init__(self, trainer_one_name: str, trainer_two_name: str):
         """
-        Constructor for Battle
+        Constructor for Battle class
+
+        :complexity: O(1) for best/worst case for value assignment
         :param trainer_one_name: 1st trainers name
         :param trainer_two_name: 2nd trainers name
         """
@@ -17,8 +19,11 @@ class Battle:
         self.battle_mode = None
 
     def set_battle_mode_to(self, value: int) -> None:
-        """
-        method to alter the battle mode value
+        """ Method to alter the battle mode value
+
+        :complexity: O(1) for best/worst case for value assignment
+        :pre: value is 0, 1 or 2
+        :raises Exception: if battle mode is not 0, 1 or 2
         :param value: value to set the battle mode to
         :return: None - it does not return anything
         """
@@ -27,12 +32,15 @@ class Battle:
         else:
             raise Exception("Unexpected battle mode value")
 
-    # Task 3, set_mode_battle is a battle mode just like rotating mode and optimised mode
+
     def set_mode_battle(self) -> str:
-        """
-        Sets battle mode to 0 and asks players to choose their team
-        It then begins the fight
-        :return: returns as a string the trainers name who won, otherwise DRAW
+        """Method for handling set battle mode. In this battle mode, the pokemon
+        at the head of the team stays until defeated, with the next pokemon then becoming the head.
+        The corresponding battle mode number for set battle mode is 0, and it employs
+        a Stack ADT.
+
+        :complexity: O(n) worst and best case, where n is max(len(self.team1), len(self.team2))
+        :return: string containing the winning team, or DRAW in case of a tie
         """
         self.set_battle_mode_to(0)
         self.team1.choose_team()
@@ -61,14 +69,13 @@ class Battle:
         else:
             return "DRAW"
 
-    def rotating_mode_battle(self) -> str:  # circular queues
+    def rotating_mode_battle(self) -> str:
         """Method for handling rotating battle mode. In this battle mode, the teams
         cycle after each fight, with the fighting pokemon moving to the end of the list.
         The corresponding battle mode number for rotating battle mode is 1, and it employs
         a Queue ADT.
 
         :complexity: O(n) worst and best case, where n is max(len(self.team1), len(self.team2))
-        :pre:
         :return: string containing the winning team, or DRAW in case of a tie
         """
 
@@ -101,6 +108,7 @@ class Battle:
         by a user-specified attribute to order their team in non-increasing order. The battle mode number for this mode
         is 2, and it employs a sorted_list ADT.
 
+        :complexity: O(max length of team1 and team2) for best/worst case
         :pre: criterions are both strings, and one of lvl, hp, attack, defence, or speed. Not case sensitive.
         :raises Exception: valueError if an invalid criterion is passed.
         :param criterion_team1: Sorting criterion. Can be one of: lvl, hp, attack, defence, speed
@@ -150,7 +158,14 @@ class Battle:
             return "DRAW"
 
     def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase,) -> None:
+        """ A method to calculate the changes to hp and level of two pokemon
+        after they fight. It also displays a verbose output of the fight for
+        entertainment purposes.
 
+        :complexity: O(1) for best/worst case
+        :param pokemon1: a PokemonBase object to fight
+        :param pokemon2: a PokemonBase object to fight
+         """
         
         print(f"{self.team1.trainer_name} chooses {pokemon1.get_name()}")
         print(f"{self.team2.trainer_name} chooses {pokemon2.get_name()}")
