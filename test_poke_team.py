@@ -127,7 +127,6 @@ class TestPokeTeam(TesterBase):
         try:
             # Check that order of list is C,B,B,S,M
             assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
-            # assert str(poketeam) == "Charmander, Bulbasaur, Bulbasaur, Squirtle, MissingNo"
         except AssertionError as e:
             self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.")
 

@@ -8,7 +8,7 @@ class TestPokemonBase(TesterBase):
         pass
 
     def test_get_hp(self) -> int:
-        # instantises each pokemon's get_hp method and checks for errors
+        # Instantiates each pokemon's get_hp method and checks for errors
         try:
             c = Charmander().get_hp()
             b = Bulbasaur().get_hp()
@@ -49,6 +49,7 @@ class TestPokemonBase(TesterBase):
             self.verificationErrors.append(f"String method failed. {e}")
 
     def test_level_up(self) -> int:
+        # instantiates each pokemon's level_up method and checks for errors
         try:
             c = Charmander()
             c.level_up()
@@ -59,7 +60,7 @@ class TestPokemonBase(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"Missing No could not be instantiated: {str(e)}.")
             return
-
+        # checks if the output values are the ones intended and raises a verification error else
         try:
             if c.get_level() != 2:
                 self.verificationErrors.append(f"String method did not return correct string: {c}")
@@ -71,6 +72,7 @@ class TestPokemonBase(TesterBase):
             self.verificationErrors.append(f"String method failed. {e}")
 
     def test_set_hp(self) -> None:
+        # instantiates each pokemon's set_hp method and checks for errors
         try:
             c = Charmander()
             c.set_hp(10)
@@ -92,6 +94,7 @@ class TestPokemonBase(TesterBase):
             self.verificationErrors.append(f"String method failed. {e}")
 
     def test_set_level(self) -> None:
+        # instantiates each pokemon's set_level method and checks for errors
         try:
             c = Charmander()
             c.set_level(5)
@@ -112,16 +115,8 @@ class TestPokemonBase(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"String method failed. {e}")
 
-    def test_get_name(self) -> str:
-        pass
-
-    def test_get_speed(self) -> int:
-        pass
-
-    def test_get_attack(self) -> int:
-        pass
-
     def test_get_poke_type(self) -> str:
+        # Instantiates each pokemon's get_poke_type method and checks for errors
         try:
             c = Charmander().get_poke_type()
             b = Bulbasaur().get_poke_type()
@@ -141,12 +136,13 @@ class TestPokemonBase(TesterBase):
             self.verificationErrors.append(f"String method failed. {e}")
 
     def test_get_criterion(self) -> int:
+        # Instantiates each pokemon's get_criterion method and checks for errors
         try:
             c = Charmander().get_criterion("lvl")
             b = Bulbasaur().get_criterion("hp")
             s = Squirtle().get_criterion("attack")
         except Exception as e:
-            self.verificationErrors.append(f"Missing No could not be instantiated: {str(e)}.")
+            self.verificationErrors.append(f"MissingNo could not be instantiated: {str(e)}.")
             return
         try:
             if c != 1:
@@ -158,10 +154,8 @@ class TestPokemonBase(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"String method failed. {e}")
 
-    def test_calculate_damage_taken(self) -> int:
-        pass
-
     def test_got_hurt_by(self) -> None:
+        # Instantiates each pokemon's got_hurt_by method and checks for errors
         try:
             c = Charmander()
             c.got_hurt_by(Charmander())
