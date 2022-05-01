@@ -91,9 +91,9 @@ class Battle:
             self.fight(pokemon1, pokemon2)
 
             if pokemon1.get_hp() > 0:
-                self.team1.team.append(pokemon1)
+                self.team1.push(pokemon1)
             if pokemon2.get_hp() > 0:
-                self.team2.team.append(pokemon2)
+                self.team2.push(pokemon2)
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -138,11 +138,11 @@ class Battle:
             self.fight(pokemon1, pokemon2)
 
             if pokemon1.get_hp() > 0:
-                self.team1.team.add(ListItem(pokemon1, pokemon1.get_criterion(criterion_team1)))
+                self.team1.push(pokemon1, criterion_team1)
                 if pokemon2.get_hp() <= 0:
                     print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
-                self.team2.team.add(ListItem(pokemon2, pokemon2.get_criterion(criterion_team2)))
+                self.team2.push(pokemon2, criterion_team2)
                 if pokemon1.get_hp() <= 0:
                     print(f"{pokemon1.get_name()} is unable to battle!\n")
 
@@ -228,14 +228,6 @@ class Battle:
 
         print(f"{pokemon1.get_name()} hp: {str(pokemon1.get_hp())}")
         print(f"{pokemon2.get_name()} hp: {str(pokemon2.get_hp())}\n")
-
-
-if __name__ == "__main__":
-    # ================= EXAMPLE APP EXECUTION =================
-    b = Battle("Ash", "Gary")
-    print(b.set_mode_battle())
-    # print(b.rotating_mode_battle())
-    #print(b.optimised_mode_battle("hp", "lvl"))
 
 
 
