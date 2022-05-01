@@ -89,7 +89,7 @@ class Bulbasaur(PokemonBase):
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
         :raises Exception: if the opponent's type is not of the ones listed in the checking statements
-        return: the damage integer caused by the opponent  """
+        return: the damage integer caused by the opponent """
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
         elif opponent.get_poke_type() == "Water":
