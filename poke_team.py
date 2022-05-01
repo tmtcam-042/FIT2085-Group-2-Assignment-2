@@ -53,8 +53,9 @@ class PokeTeam:
             if sum(team) > 6:
                 print("Your team can only consist of a maximum of 6 pokemons")
                 continue # if not go back to the start of the loop
-            
+
             if team[3] > 1:
+                # if the user has entered more than 1 missing no -> go back to the start of loop
                 print("Your team can only consist of a maximum of 1 missing pokemon")
                 continue
             else:
@@ -63,6 +64,8 @@ class PokeTeam:
         # Extending team to hold 4 values so that criterion can be directly passed
         while len(team) < 4:
             team.append(0)
+        
+        # Assign the team -> * notation is used to unpack the tuple
         self.assign_team(*team, criterion=criterion)
 
     def assign_team(self, charm: int = 0, bulb: int = 0, squir: int = 0, missN: int = 0, criterion: str = None) -> None:
@@ -103,7 +106,7 @@ class PokeTeam:
 
         self.team = ArrayStack(6)
         [self.team.push(MissingNo()) for _ in range(missN) if not self.team.is_full()]
-        # for loop for pushing pokemons to self.team(Stack ADT) if team is not full
+        # for loops for pushing pokemons to self.team(Stack ADT) if team is not full
         [self.team.push(Squirtle()) for _ in range(squir) if not self.team.is_full()]
         [self.team.push(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.push(Charmander()) for _ in range(charm) if not self.team.is_full()]
@@ -119,7 +122,7 @@ class PokeTeam:
         :complexity: O(n) where n is the number of pokemons to be added
         """
         self.team = CircularQueue(6)
-        # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
+        # for loops for pushing pokemons to self.team(CircularQueue ADT) if team is not full
         [self.team.append(MissingNo()) for _ in range(missN) if not self.team.is_full()]
         [self.team.append(Charmander()) for _ in range(charm) if not self.team.is_full()]
         [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
@@ -163,12 +166,14 @@ class PokeTeam:
             self.team.length = initial_length   # restore the initial length
 
         elif self.team.__class__.__name__ == "CircularQueue":
+            # for loop to append pokemon details to strings
             for i in range(len(self)):
                 item = self.team.serve()
                 string.append(str(item))
                 self.team.append(item)
 
         elif self.team.__class__.__name__ == "ArraySortedList":
+            # for loop to append pokemon details to strings
             for i in range(len(self.team) - 1, -1, -1):
                 string.append(str(self.team[i].value))
 
