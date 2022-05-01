@@ -149,8 +149,6 @@ class PokeTeam:
         # every other pokemon has fought at least once.
         [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
 
-        print(self)
-
     def __str__(self) -> str:
         """
         overrides default str() method to return the user's team

@@ -136,22 +136,22 @@ class TestPokeTeam(TesterBase):
             return
         try:
             # Check that MissingNo is final pokemon
-            assert poketeam.team[len(poketeam) - 1].value.name == "MissingNo"
+            assert poketeam.team[0].value.name == "MissingNo"
         except AssertionError as e:
             self.verificationErrors.append(f"MissingNo not final pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with greatest initial hp, bulbasaur, is at head of list
-            assert poketeam.team[0].value.name == "Bulbasaur"
+            assert poketeam.team[3].value.name == "Bulbasaur"
         except AssertionError as e:
             self.verificationErrors.append(f"Bulbasaur not first pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with second greatest initial hp, Squirtle, is second in list
-            assert poketeam.team[1].value.name == "Squirtle"
+            assert poketeam.team[2].value.name == "Squirtle"
         except AssertionError as e:
             self.verificationErrors.append(f"Squirtle not second pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with lowest initial hp, Charmander, is third in list
-            assert poketeam.team[2].value.name == "Charmander"
+            assert poketeam.team[1].value.name == "Charmander"
         except AssertionError as e:
             self.verificationErrors.append(f"Charmander not third pokemon in list: {str(e)}.")
 
