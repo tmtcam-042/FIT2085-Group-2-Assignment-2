@@ -7,7 +7,7 @@ class GlitchMonTester(TesterBase):
         # tested in test_missing_no
         pass
 
-    def test_increaseHp(self):
+    def test_increase_hp(self):
         # tested in test_missing_no
         pass
 
