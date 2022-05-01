@@ -3,7 +3,8 @@ from pokemon import Charmander, Bulbasaur, Squirtle
 from pokemon_base import PokemonBase
 from stack_adt import ArrayStack
 from queue_adt import CircularQueue
-from sorted_list import ArraySortedList, ListItem
+from sorted_list import ListItem
+from array_sorted_list import ArraySortedList
 
 class PokeTeam:
     """
@@ -30,31 +31,35 @@ class PokeTeam:
         else:
             self.battle_mode = battle_mode
 
-        choose_team_details = (f"Howdy {self.trainer_name}! Choose your team as C B S M\n"
+        choose_team_details = (f"Howdy {self.trainer_name}! Choose your team as C B S\n"
                                "where C is the number of Charmanders\n"
                                "      B is the number of Bulbasaurs\n"
                                "      S is the number of Squirtles\n"
                                "      M is the number of Unknown Pokémon\n")
-        team = [0, 0, 0, 0]  # updated below
+        team = [0, 0, 0]  # updated below
 
         while True:
             try:
                 team = list(map(int, input(choose_team_details).strip().split(" ")))
+                if len(team) == 4 and team[3] > 0:
+                    pass
+                else:
+                    while len(team) < 4:
+                        # Append 0 values to team so that self.assign_team() receives correct number of parameters
+                        team.append(0)
+
             except Exception as e:
                 print(e)
                 continue
+
             if sum(team) > 6:
-                print("Your team can only consist of a maximum of 6 pokemons")
-                continue
-            elif team[3] > 1:
-                print("Your team can only consist of a maximum of 1 missing pokemon")
+                print("Your team can only consist of a maximum of 6 pokemon")
                 continue
             else:
                 break
+        self.assign_team(*team, criterion=criterion)
 
-        self.assign_team(charm=team[0], bulb=team[1], squir=team[2], missN=team[3], criterion=criterion)
-
-    def assign_team(self, charm: int, bulb: int, squir: int, missN: int, criterion: str = None) -> None:
+    def assign_team(self, charm: int = 0, bulb: int = 0, squir: int = 0, missN: int = 0, criterion: str = None) -> None:
         """
         Assigns the user's team with the inputted number of charmanders, bulbasaurs and squirtles.
         If the team has more than 6 pokemon, an exception is raised.
@@ -128,9 +133,9 @@ class PokeTeam:
         [self.team.add(ListItem(Bulbasaur(), Bulbasaur().get_criterion(criterion))) for _ in range(bulb)]
         [self.team.add(ListItem(Squirtle(), Squirtle().get_criterion(criterion))) for _ in range(squir)]
 
-        self.team.sort()
-        # add MissingNo here
-        [self.team.add(ListItem(MissingNo(), MissingNo().get_criterion(criterion))) for _ in range(missN)]
+        # add MissingNo here. By giving it a key value of zero, we ensure that it will always act after 
+        # every other pokemon has fought at least once.
+        [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
 
     def __str__(self) -> str:
         string = []
@@ -165,7 +170,7 @@ class PokeTeam:
         elif self.team.__class__.__name__ == "CircularQueue":
             return self.team.serve() 
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.delete_at_index(0).get_value()
+            return self.team.delete_at_index(0).value
         else:
             raise Exception("Unknown data structure")
 

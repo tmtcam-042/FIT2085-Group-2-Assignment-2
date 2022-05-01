@@ -24,7 +24,12 @@ class TestTask3(TesterBase):
         except AssertionError:
             self.verificationErrors.append(f"Misty should win: {result}.")
 
-    ### ADD TESTS HERE
+        pokemon.set_hp(5)
+        try:
+            assert pokemon.hp == 5
+        execept 
+
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestTask3)

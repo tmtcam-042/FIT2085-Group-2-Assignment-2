@@ -35,17 +35,15 @@ class Charmander(PokemonBase):
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == "Water":
             effective_damage = opponent.get_attack() * 2
-            print("Water was effective on " + self.name + "!")
         elif opponent.get_poke_type() == "Grass":
             effective_damage = opponent.get_attack() * 0.5
         else:
-            effective_damage = opponent.get_attack() * 1
+            raise Exception("Attacker type is not Fire, Water or Grass")
 
         if effective_damage > self.get_defence():
             return effective_damage
         else:
             return effective_damage // 2
-            print(self.name + "dodged it!")
 
 
 class Bulbasaur(PokemonBase):
@@ -73,19 +71,17 @@ class Bulbasaur(PokemonBase):
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
-            print("Fire was effective on " + self.name + "!")
         elif opponent.get_poke_type() == "Water":
             effective_damage = opponent.get_attack() * 0.5
         elif opponent.get_poke_type() == "Grass":
             effective_damage = opponent.get_attack()
         else:
-            effective_damage = opponent.get_attack() * 1
+            raise Exception("Attacker type is not Fire, Water or Grass")
 
         if effective_damage > self.get_defence() + 5:
             return effective_damage
         else:
             return effective_damage // 2
-            print(self.name + "dodged it!")
 
 
 class Squirtle(PokemonBase):
@@ -110,30 +106,26 @@ class Squirtle(PokemonBase):
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         if opponent.get_poke_type() == 'Fire':
+            # 0.5 is the effect multiplier.
             effective_damage = opponent.get_attack() * 0.5
         elif opponent.get_poke_type() == 'Water':
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == 'Grass':
+            # 2 is the effect multiplier.
             effective_damage = opponent.get_attack() * 2
-            print("Grass was effective on " + self.name + "!")
         else:
-            effective_damage = opponent.get_attack() * 1
+            raise Exception("Attacker type is not of Fire, Water or Grass type")
 
         if effective_damage > self.get_defence() * 2:
             return effective_damage
         else:
             return effective_damage // 2
-            print(self.name + "dodged it!")
 
 
 if __name__ == '__main__':
     charm = Charmander()
     squir = Squirtle()
     print(squir.get_attack())
-    squir.level_up()
-    squir.level_up()
-    squir.level_up()
-    squir.level_up()
     squir.level_up()
     squir.level_up()
     print(squir.get_attack())

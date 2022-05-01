@@ -27,15 +27,12 @@ class Battle:
         while len(self.team1) > 0 and len(self.team2) > 0:
             pokemon1 = self.team1.remove()
             pokemon2 = self.team2.remove()
+            
             self.fight(pokemon1, pokemon2)
             if pokemon1.get_hp() > 0:
                 self.team1.push(pokemon1)
-                if pokemon2.get_hp() <= 0:
-                    print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
                 self.team2.push(pokemon2)
-                if pokemon1.get_hp() <= 0:
-                    print(f"{pokemon1.get_name()} is unable to battle!\n")
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -55,6 +52,10 @@ class Battle:
         self.team2.choose_team(1)
 
         while len(self.team1) > 0 and len(self.team2) > 0:
+            # TODO: FOR TESTING PURPOSE ONLY
+            length1 = len(self.team1)
+            length2 = len(self.team2)
+
             pokemon1 = self.team1.team.serve()
             pokemon2 = self.team2.team.serve()
             missingNo1 = None
@@ -72,14 +73,8 @@ class Battle:
 
             if pokemon1.get_hp() > 0:
                 self.team1.team.append(pokemon1)
-                if pokemon2.get_hp() <= 0:
-                    print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
                 self.team2.team.append(pokemon2)
-                if pokemon1.get_hp() <= 0:
-                    print(f"{pokemon1.get_name()} is unable to battle!\n")
-            if pokemon1.get_hp() <= 0 and pokemon2.get_hp() <= 0:
-                print(f"Both pokemon are unable to battle!\n")
 
             # checks if Giratina exists and then executes
             # if the length after the last Pokemon on the team has battled, then Giratina gets added back into the queue.
@@ -100,12 +95,26 @@ class Battle:
             return "DRAW"
 
     def optimised_mode_battle(self, criterion_team1: str, criterion_team2: str) -> str:  # Task 5
-        """TODO: Finish this description. Figure out where to ask for criterion
+        """Method for handling optimised battle mode. In this battle mode, the teams are constantly sorted
+        by a user-specified attribute to order their team in non-increasing order. The battle mode for this mode
+        is 2, and it employs a sorted_list ADT through the ArraySortedList
 
+        :pre: criterions are both strings, and one of lvl, hp, attack, defence, or speed. Not case sensitive.
+        :raises Exception: valueError if an invalid criterion is passed.
         :param criterion_team1: Sorting criterion. Can be one of: lvl, hp, attack, defence, speed
         :param criterion_team2: Sorting criterion. Can be one of: lvl, hp, attack, defence, speed
         :return: string containing the winning team, or DRAW in case of a tie
         """
+
+        criterion_list = ["lvl", "hp", "attack", "defence", "speed"]
+        if criterion_team1.lower() not in criterion_list:
+            raise ValueError("Criterion 1 invalid, not one of lvl, hp, attack, defence, or speed")
+        if criterion_team2.lower() not in criterion_list:
+            raise ValueError("Criterion 2 invalid, not one of lvl, hp, attack, defence, or speed")
+
+        criterion_team1 = criterion_team1.lower()
+        criterion_team2 = criterion_team2.lower()
+
         self.set_battle_mode_to(2)
         self.team1.choose_team(self.battle_mode, criterion_team1)
         self.team2.choose_team(self.battle_mode, criterion_team2)
@@ -119,16 +128,14 @@ class Battle:
             self.fight(pokemon1, pokemon2)
 
             if pokemon1.get_hp() > 0:
-                self.team1.team[0] = ListItem(pokemon1, pokemon1.get_criterion(criterion_team1))  # Re-insert pokemon into head of list
                 if pokemon2.get_hp() <= 0:
                     print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0:
-                self.team2.team[0] = ListItem(pokemon2, pokemon2.get_criterion(criterion_team2))
                 if pokemon1.get_hp() <= 0:
                     print(f"{pokemon1.get_name()} is unable to battle!\n")
 
-            self.team1.team.sort()
-            self.team2.team.sort()
+            self.team1.team.add(ListItem(pokemon1, pokemon1.get_criterion(criterion_team1)))
+            self.team2.team.add(ListItem(pokemon2, pokemon2.get_criterion(criterion_team2)))
 
         # Return winner or draw
         if len(self.team1) > 0:
@@ -138,12 +145,13 @@ class Battle:
         else:
             return "DRAW"
 
-    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase) -> None:
+    def fight(self, pokemon1: PokemonBase, pokemon2: PokemonBase,) -> None:
         print(f"{self.team1.trainer_name} chooses {pokemon1.get_name()}")
         print(f"{self.team2.trainer_name} chooses {pokemon2.get_name()}")
 
         if pokemon1.get_speed() > pokemon2.get_speed():  # P1 fights P2 first, then P2 defends
             print(f"{pokemon1.get_name()} uses Attack!")
+            print(f"{pokemon2.get_name()} uses Defend!")
             pokemon2.set_hp(pokemon2.get_hp() - pokemon2.calculate_damage_taken(pokemon1))
 
             if pokemon2.get_hp() > 0:
@@ -159,6 +167,7 @@ class Battle:
 
         elif pokemon1.get_speed() < pokemon2.get_speed():  # P2 fights P1 first, then P1 has chance to retaliate.
             print(f"{pokemon2.get_name()} uses Attack!")
+            print(f"{pokemon1.get_name()} uses Defend!")
             pokemon1.set_hp(pokemon1.get_hp() - pokemon1.calculate_damage_taken(pokemon2))
 
             if pokemon1.get_hp() > 0:
@@ -201,4 +210,6 @@ if __name__ == "__main__":
     # print(b.set_mode_battle())
     print(b.rotating_mode_battle())
     #print(b.optimised_mode_battle("hp", "lvl"))
+
+
 

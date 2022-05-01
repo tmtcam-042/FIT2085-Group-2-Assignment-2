@@ -18,7 +18,7 @@ class TestTask1(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"String method failed. {e}")
 
-    ### ADD TESTS HERE
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestTask1)

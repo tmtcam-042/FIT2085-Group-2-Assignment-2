@@ -1,11 +1,13 @@
 from glitch_mon import GlitchMon
 from pokemon import Charmander, Bulbasaur, Squirtle
 from pokemon_base import PokemonBase
+import math
 
 
 class MissingNo(GlitchMon):
     def __init__(self):
         averageHp = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
+
         GlitchMon.__init__(self, averageHp, "Unknown")
         self.name = 'MissingNo'
         self.attack = int((Charmander().get_hp() + Bulbasaur().get_hp() + Squirtle().get_hp()) / 3)
@@ -40,4 +42,15 @@ class MissingNo(GlitchMon):
 
 if __name__ == "__main__":
     charm = Charmander()
-    print(MissingNo())
+    hp = charm.__str__()
+    gir = MissingNo()
+    print(gir.get_level())
+    print(gir.get_hp())
+    print(gir.superpower())
+    print(gir.get_level())
+    print(gir.get_hp())
+    print(gir.get_criterion("hp"))
+    print(gir.__str__())
+
+
+

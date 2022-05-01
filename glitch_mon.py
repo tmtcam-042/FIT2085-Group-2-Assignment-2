@@ -5,9 +5,12 @@ from pokemon_base import PokemonBase
 
 
 class GlitchMon(PokemonBase):
+    """function explainer
+    """
     def __init__(self, hp: int, poke_type: str):
         PokemonBase.__init__(self, hp, poke_type)
 
+    # TODO: confirm with team which is abstract which is not
     @abstractmethod
     def increaseHp(self) -> int:
         pass
@@ -26,3 +29,4 @@ class GlitchMon(PokemonBase):
             self.level_up()
             self.increaseHp()
             print(self.get_name() + " leveled up and increased HP!")
+

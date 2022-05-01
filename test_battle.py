@@ -82,3 +82,4 @@ if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestBattle)
     unittest.TextTestRunner(verbosity=0).run(suite)
 
+
