@@ -136,6 +136,7 @@ class PokeTeam:
         # add MissingNo here. By giving it a key value of zero, we ensure that it will always act after 
         # every other pokemon has fought at least once.
         [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
+        print(self)
 
     def __str__(self) -> str:
         string = []
@@ -155,8 +156,8 @@ class PokeTeam:
                 self.team.append(item)
 
         elif self.team.__class__.__name__ == "ArraySortedList":
-            for i in range(len(self)):
-                string.append(str(self.team[i].get_value()))
+            for i in range(len(self.team) - 1, -1, -1):
+                string.append(str(self.team[i].value))
 
         return ", ".join(string)
         #return ",\n".join(string) + "\n"
@@ -170,7 +171,7 @@ class PokeTeam:
         elif self.team.__class__.__name__ == "CircularQueue":
             return self.team.serve() 
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.delete_at_index(0).value
+            return self.team.delete_at_index(-1).value
         else:
             raise Exception("Unknown data structure")
 
