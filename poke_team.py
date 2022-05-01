@@ -210,10 +210,11 @@ class PokeTeam:
                      ArraySortedList has O(n) complexity, where n is the length of the list
         """
         if self.team.__class__.__name__ == "ArrayStack":
-            self.team.push(pokemon)
+            self.team.push(pokemon) # use push() to put the pokemon back at the head of the Stack
         elif self.team.__class__.__name__ =="CircularQueue":
-            return self.team.append(pokemon) # use append() to put the pokemon back into the team
+            return self.team.append(pokemon) # use append() to put the pokemon back at the end of the Queue
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.add(ListItem(pokemon.value, pokemon.value.get_criterion(criterion)))
+            # use add() to put the pokemon back into the Sorted List, sorted.
+            return self.team.add(ListItem(pokemon, pokemon.get_criterion(criterion)))
         else:
             raise ValueError("Unknown data structure")
