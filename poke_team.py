@@ -202,7 +202,7 @@ class PokeTeam:
             # if the ADT is not one of the above, raise an error
             raise Exception("Unknown data structure")
 
-    def push(self, pokemon: PokemonBase) -> None:
+    def push(self, pokemon: PokemonBase, criterion=None) -> PokemonBase:
         """
         normalised method to add pokemons to the user's team
         :param pokemon: pokemon to be added to the user's team
@@ -211,7 +211,9 @@ class PokeTeam:
         """
         if self.team.__class__.__name__ == "ArrayStack":
             self.team.push(pokemon)
+        elif self.team.__class__.__name__ =="CircularQueue":
+            return self.team.append(pokemon) # use append() to put the pokemon back into the team
+        elif self.team.__class__.__name__ == "ArraySortedList":
+            return self.team.add(ListItem(pokemon, pokemon.get_criterion(criterion)))
         else:
-            raise Exception("Unknown data structure")
-
-
+            raise ValueError("Unknown data structure")
