@@ -65,20 +65,31 @@ class Bulbasaur(PokemonBase):
         self.speed = 7
 
     def get_name(self) -> str:
+        """ Gets Bulbasaur's name
+        return: the name string """
         return self.name
 
     def get_attack(self) -> int:
+        """ gets the attack value of Bulbasur which depends on its level
+        return: attack integer """
         return self.attack
 
     def get_defence(self) -> int:
+        """ gets the defence value of Bulbasaur
+        return: defence integer """
         self.defence = 5
         return self.defence
 
     def get_speed(self) -> int:
+        """ gets the speed value of Bulbasaur
+        return: speed integer """
         return self.speed + self.level // 2
 
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
+        """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
+        :raises Exception: if the opponent's type is not of the ones listed in the checking statements
+        return: the damage integer caused by the opponent  """
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
         elif opponent.get_poke_type() == "Water":
@@ -105,18 +116,29 @@ class Squirtle(PokemonBase):
         self.speed = 7
 
     def get_name(self) -> str:
+        """ Gets Squirtle's name
+        return: the name string """
         return self.name
 
     def get_attack(self) -> int:
+        """ gets the attack value of Squirtle which depends on its level
+        return: attack integer """
         return self.attack + (self.level // 2)
 
     def get_defence(self) -> int:
+        """ gets the defence value of Squirtle
+        return: defence integer """
         return self.defence + self.level
 
     def get_speed(self) -> int:
+        """ gets the speed value of Squirtle
+        return: speed integer """
         return self.speed
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
+        """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
+        :raises Exception: if the opponent's type is not of the ones listed in the checking statements
+        return: the damage integer caused by the opponent  """
         if opponent.get_poke_type() == 'Fire':
             # 0.5 is the effect multiplier.
             effective_damage = opponent.get_attack() * 0.5
