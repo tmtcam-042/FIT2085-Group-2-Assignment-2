@@ -25,7 +25,7 @@ class GlitchMon(PokemonBase):
         :complexity: O(1) """
         pass
 
-    def superPower(self) -> str:
+    def superpower(self) -> str:
         """ uses a random integer generator (25% chance) to
         determine if Glitchmon should level up, increase HP or both
 

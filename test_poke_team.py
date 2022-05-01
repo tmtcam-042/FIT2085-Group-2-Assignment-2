@@ -3,11 +3,12 @@ import unittest
 from tester_base import TesterBase, captured_output
 from poke_team import PokeTeam
 
+
 class TestPokeTeam(TesterBase):
 
     def test_choose_team(self):
         try:
-           team = PokeTeam("Gary") # create a team
+            team = PokeTeam("Gary")
         except Exception as e:
             self.verificationErrors.append(f"Gary's team could not be instantiated: {str(e)}.")
         try:
@@ -30,7 +31,8 @@ class TestPokeTeam(TesterBase):
         except AssertionError:
             self.verificationErrors.append(f"PokeTeam does not print prompt correctly.")
         try:
-            assert str(team) == "Charmander's HP = 7 and level = 1, Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, Squirtle's HP = 8 and level = 1"
+            assert str(
+                team) == "Charmander's HP = 7 and level = 1, Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, Squirtle's HP = 8 and level = 1"
         except AssertionError:
             self.verificationErrors.append(f"PokeTeam does not handle limit correctly. {str(team)}")
 
@@ -93,39 +95,43 @@ class TestPokeTeam(TesterBase):
             self.verificationErrors.append(f"Team failed to assign: {str(e)}.")
             return
         try:
-            # Check that MissingNo is first pokemon in the list
-            pokemons = 2, 2, 1, 1   # 2 Charmanders, 2 Bulbasaurs, 1 Squirtle, 1 MissingNo
-            poketeam.assign_rotating_mode_battle(*pokemons) # unpack the tuple
-            get_pokemon = poketeam.team.serve()
-            assert get_pokemon.__class__.__name__ == "MissingNo"
+
+            to_be_found = "Charmander"
+            for i in range(pokemons[0]):
+                # get the next pokemon
+                last_pokemon = poketeam.remove()
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Charmander" # check the pokemon is Charmander
+                poketeam.push(last_pokemon) # push it back into the ADT
+
+            to_be_found = "Bulbasaur"
+            for i in range(pokemons[1]):
+                last_pokemon = poketeam.remove()            # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Bulbasaur" # check the pokemon is Bulbasaur
+                poketeam.push(last_pokemon) # push it back into the ADT
+
+            to_be_found = "Squirtle"
+            for i in range(pokemons[2]):
+                last_pokemon = poketeam.remove()        # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Squirtle" # check the pokemon is Squirtle
+                poketeam.push(last_pokemon) # push it back into the ADT
+
+            to_be_found = "MissingNo"
+            for i in range(pokemons[3]):
+                last_pokemon = poketeam.remove()       # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "MissingNo" # check the pokemon is MissingNo
+                poketeam.push(last_pokemon) # push it back into the ADT
+
         except AssertionError as e:
-            self.verificationErrors.append(f"MissingNo not first pokemon in list: {str(e)}.")
+            self.verificationErrors.append(f"Incorrect pokemon found. Expected: {to_be_found} Got: {last_pokemon}")
         try:
-            # Check that Charmander is second pokemon in the list
-            pokemons = 2, 2, 1, 1         # Charmander, Bulbasaur, Squirtle, MissingNo
-            poketeam.assign_rotating_mode_battle(*pokemons) # unpacking the tuple
-            get_pokemon = poketeam.team.serve()       # get the next pokemon
-            assert get_pokemon.__class__.__name__ == "Charmander" # check that it is Charmander
-        except AssertionError as e:
-            self.verificationErrors.append(f"Charmander not second pokemon in list: {str(e)}.")  # add to verificationErrors
-        try:
-            # Check that Bulbasaur is third pokemon in the list
-            get_pokemon = poketeam.team.serve()      # get the next pokemon
-            assert get_pokemon.__class__.__name__ == "Bulbasaur" # check that it is Bulbasaur
-        except AssertionError as e: 
-            self.verificationErrors.append(f"Bulbasaur not third pokemon in list: {str(e)}.")   # add to verificationErrors
-        try:
-            # Check that Squirtle is last in the list
-            get_pokemon = poketeam.team.serve()     # get the next pokemon
-            assert get_pokemon.__class__.__name__ == "Squirtle" # check that it is Squirtle
-        except AssertionError as e:
-            self.verificationErrors.append(f"Squirtle not fourth pokemon in list: {str(e)}.")   # add to verificationErrors
-        try:
-            # Check that order of list is 2 M, 2 C, 1 B, 1 S
-            assert str(poketeam) == "MissingNo's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1, Charmander's HP = 7 and level = 1, Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1"
+            # Check that order of list is C,B,B,S,M
+            assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
         except AssertionError as e:
             self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.") # add to verificationErrors
-
 
     def test_assign_optimised_mode_battle(self):
         poketeam = PokeTeam("Ash")
@@ -138,36 +144,38 @@ class TestPokeTeam(TesterBase):
             return
         try:
             # Check that MissingNo is final pokemon
-            assert poketeam.team[len(poketeam) - 1].value.name == "MissingNo"
+            assert poketeam.team[0].value.name == "MissingNo"
         except AssertionError as e:
             self.verificationErrors.append(f"MissingNo not final pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with greatest initial hp, bulbasaur, is at head of list
-            assert poketeam.team[0].value.name == "Bulbasaur"
+            assert poketeam.team[3].value.name == "Bulbasaur"
         except AssertionError as e:
             self.verificationErrors.append(f"Bulbasaur not first pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with second greatest initial hp, Squirtle, is second in list
-            assert poketeam.team[1].value.name == "Squirtle"
+            assert poketeam.team[2].value.name == "Squirtle"
         except AssertionError as e:
             self.verificationErrors.append(f"Squirtle not second pokemon in list: {str(e)}.")
         try:
             # Check that pokemon with lowest initial hp, Charmander, is third in list
-            assert poketeam.team[2].value.name == "Charmander"
+            assert poketeam.team[1].value.name == "Charmander"
         except AssertionError as e:
             self.verificationErrors.append(f"Charmander not third pokemon in list: {str(e)}.")
 
         try:
-           criterion = "lvl"
-           poketeam.assign_optimised_mode_battle(*pokemons, criterion)
+            criterion = "lvl"
+            poketeam.assign_optimised_mode_battle(*pokemons, criterion)
         except Exception as e:
             self.verificationErrors.append(f"Team failed to assign: {str(e)}.")
             return
         try:
             # Check that order of list is C, B, S, M if starting sorting value is all the same
-            assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
+            assert str(
+                poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
         except AssertionError as e:
             self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.")
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestPokeTeam)
