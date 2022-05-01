@@ -29,8 +29,8 @@ class TestPokemonBase(TesterBase):
             self.verificationErrors.append(f"String method failed. {e}")
 
     def test_get_level(self) -> int:
-        # instantises each pokemon's get_level method and checks for errors
         try:
+        # instantises each pokemon's get_level method and checks for errors
             c = Charmander().get_level()
             b = Bulbasaur().get_level()
             s = Squirtle().get_level()

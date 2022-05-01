@@ -3,14 +3,6 @@ from tester_base import TesterBase
 
 class GlitchMonTester(TesterBase):
 
-    def test_init(self):
-        # tested in test_missing_no
-        pass
-
-    def test_increase_hp(self):
-        # tested in test_missing_no
-        pass
-
     def test_superpower(self):
         # tests if superpower method is functional
         from missing_no import MissingNo

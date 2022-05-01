@@ -71,10 +71,3 @@ class MissingNo(GlitchMon):
             return effective_damage
         else:
             return effective_damage // 2
-
-if __name__ == '__main__':
-    print(MissingNo())
-
-
-if __name__ == '__main__':
-    p = MissingNo()

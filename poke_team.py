@@ -6,6 +6,12 @@ from queue_adt import CircularQueue
 from sorted_list import ListItem
 from array_sorted_list import ArraySortedList
 
+""" Class for creating each team
+
+A class allows the user to choose the team they would like to battle with
+and implement that team into the selected battle mode
+"""
+
 class PokeTeam:
     """
     Creates a team for a trainer with a maximum of 6 pokemon and sets the battle mode
