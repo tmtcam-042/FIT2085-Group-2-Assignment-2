@@ -1,7 +1,13 @@
-
 from pokemon_base import PokemonBase
 from poke_team import PokeTeam
+""" Base class for Battle
 
+Defines a class that encapsulates all possible battle modes and 
+relevant methods. Used during gameplay by invoking one of its three possible
+battle mode methods, which then asks for user input and handles pokemon fighting.
+"""
+__author__ = "Kisara Batugedara, Rishi Bidani, Neth Botheju, Thomas Cameron"
+__docformat__ = "reStructuredText"
 
 class Battle:
     def __init__(self, trainer_one_name: str, trainer_two_name: str):

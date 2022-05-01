@@ -2,6 +2,7 @@
 Class that inherits PokemonBase class which allows to instantise each pokemon
 with their respective attributes
 """
+
 from pokemon_base import PokemonBase
 
 class Charmander(PokemonBase):
