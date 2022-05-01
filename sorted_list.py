@@ -1,17 +1,8 @@
-
-
-
 """
-    SortedList ADT and an aray implementation.
+    SortedList ADT.
 
-    Defines a generic abstract sorted list with the standard methods, and
-    implements a sorted list using arrays and Insertion sort.
+    Defines a generic abstract sorted list with the standard methods.
     Items to store should be of type ListItem.
-
-    TODO: CHANGE NOTE BELOW
-    note to team: Insertion sort picked for stability and incrementability to
-    support MissingNo, and since it uses Insertion which is a method setup
-    in the abstract class, it seems appropriate.
 """
 
 from abc import ABC, abstractmethod
@@ -19,7 +10,7 @@ from typing import TypeVar, Generic
 T = TypeVar('T')
 K = TypeVar('K')
 
-__author__ = 'Maria Garcia de la Banda and Brendon Taylor. Modified by Alexey Ignatiev and Thomas Cameron'
+__author__ = 'Maria Garcia de la Banda and Brendon Taylor. Modified by Alexey Ignatiev'
 __docformat__ = 'reStructuredText'
 
 
