@@ -6,6 +6,7 @@ from queue_adt import CircularQueue
 from sorted_list import ListItem
 from array_sorted_list import ArraySortedList
 
+
 class PokeTeam:
     """
     Creates a team for a trainer with a maximum of 6 pokemon and sets the battle mode
@@ -22,8 +23,10 @@ class PokeTeam:
         the user so that the user can select the layout of the team i.e how many types of pokemon in a team of 6.
 
         :param battle_mode: the battle mode of the battle between two teams
-        :param criterion: Used in optimised battle mode to determine criterion to sort by
+        :param criterion: Used in optimised battle mode to determine criterion to
+                          sort by ("lvl", "hp", "attack", "defence", "speed")
         return: None
+        :complexity: O()
         """
         # Set battle team
         if battle_mode > 2 or battle_mode < 0:
@@ -66,6 +69,8 @@ class PokeTeam:
         :param charm: number of charmanders
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
+        :param missN: number of missing no
+        :param criterion: a string for the criterion to be used - ("lvl", "hp", "attack", "defence", "speed")
         :return: None
         """
         if self.battle_mode == 0:
@@ -89,6 +94,7 @@ class PokeTeam:
         :param charm: number of charmanders
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
+        :param missN: number of missing no
         :return: None
         """
 
@@ -106,6 +112,7 @@ class PokeTeam:
         :param charm: number of charmanders
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
+        :param missN: number of missing no
         :return: None
         """
         self.team = CircularQueue(6)
@@ -123,6 +130,8 @@ class PokeTeam:
         :param charm: number of charmanders
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
+        :param missN: number of missing no
+        :param criterion: a string for the criterion to be used - ("lvl", "hp", "attack", "defence", "speed")
         :return: None
         :raise Exception: if criterion is invalid
         """
@@ -137,6 +146,9 @@ class PokeTeam:
         [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
 
     def __str__(self) -> str:
+        """
+        override the default str() method
+        """
         string = []
         # returning the user's team selection
 
@@ -166,7 +178,7 @@ class PokeTeam:
         if self.team.__class__.__name__ == "ArrayStack":
             return self.team.pop()
         elif self.team.__class__.__name__ == "CircularQueue":
-            return self.team.serve() 
+            return self.team.serve()
         elif self.team.__class__.__name__ == "ArraySortedList":
             return self.team.delete_at_index(0).value
         else:
@@ -185,4 +197,3 @@ if __name__ == "__main__":
     poketeam.choose_team(1, None)
 
     print(poketeam)
-
