@@ -1,4 +1,4 @@
-import random
+
 from pokemon_base import PokemonBase
 from poke_team import PokeTeam
 
