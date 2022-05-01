@@ -43,14 +43,18 @@ class PokeTeam:
 
         while True:
             try:
+                # Ask user to input the number of charmanders, bulbasaurs and squirtles
                 team = list(map(int, input(choose_team_details).strip().split(" ")))
             except Exception as e:
-                print(e)
-                continue
+                print(e) # print the error message
+                continue # go back to the start of the loop
+
+            # Check if the user has entered the correct number of pokemon
             if sum(team) > 6:
                 print("Your team can only consist of a maximum of 6 pokemons")
-                continue
-            elif team[3] > 1:
+                continue # if not go back to the start of the loop
+            
+            if team[3] > 1:
                 print("Your team can only consist of a maximum of 1 missing pokemon")
                 continue
             else:
@@ -72,17 +76,18 @@ class PokeTeam:
         :return: None
         """
         if self.battle_mode == 0:
-
+            # call assign_set_mode_battle() if battle mode is 0
             self.assign_set_mode_battle(charm, bulb, squir, missN)
 
         elif self.battle_mode == 1:
-
+            # call assign_rotating_mode_battle() if battle mode is 1
             self.assign_rotating_mode_battle(charm, bulb, squir, missN)
 
         elif self.battle_mode == 2:
-
+            # call assign_optimised_mode_battle() if battle mode is 2
             self.assign_optimised_mode_battle(charm, bulb, squir, missN, criterion)
         else:
+            # raise exception if battle mode is not 0, 1 or 2
             raise ValueError("Unexpected battle mode type")
 
     def assign_set_mode_battle(self, charm: int, bulb: int, squir: int, missN: int) -> None:
@@ -181,13 +186,15 @@ class PokeTeam:
         :complexity: ArrayStack and CircularQueue have O(1) complexity
                      ArraySortedList has O(n) complexity, where n is the length of the list
         """
+        # Check if the ADT is ArrayStack, CircularQueue or ArraySortedList
         if self.team.__class__.__name__ == "ArrayStack":
-            return self.team.pop()
+            return self.team.pop() # use pop() to remove the pokemon and return it
         elif self.team.__class__.__name__ == "CircularQueue":
-            return self.team.serve() 
+            return self.team.serve() # use serve() to remove the pokemon and return it
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.delete_at_index(0).value
+            return self.team.delete_at_index(0).value # use delete_at_index() to remove the pokemon and return it
         else:
+            # if the ADT is not one of the above, raise an error
             raise Exception("Unknown data structure")
 
     def push(self, pokemon: PokemonBase) -> None:
