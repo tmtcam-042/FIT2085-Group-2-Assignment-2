@@ -102,4 +102,5 @@ class PokemonBase(ABC, Generic[T]):
     def __str__(self) -> str:
         """  Magic method constructing a string representation the pokemon's name, HP and level """
         name = self.get_name()
-        return name + "'s HP = " + str(self.hp) + " and level = " + str(self.level)
+        # return name + "'s HP = " + str(self.hp) + " and level = " + str(self.level)
+        return f"{name}'s HP = {self.hp} and level = {self.level}"
