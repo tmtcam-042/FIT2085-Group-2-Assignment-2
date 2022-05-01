@@ -136,11 +136,11 @@ class Battle:
             self.fight(pokemon1, pokemon2) # The two pokemon fight, modifying their hp and level accordingly
 
             if pokemon1.get_hp() > 0: # If pokemon 1 is still alive, push it back to the team
-                self.team1.push(pokemon1, criterion_team1)
+                self.team1.push(pokemon1, pokemon1.get_criterion(criterion_team1) + 0.1) # 0.1 addition ensures stability
                 if pokemon2.get_hp() <= 0:
                     print(f"{pokemon2.get_name()} is unable to battle!\n")
             if pokemon2.get_hp() > 0: # If pokemon 2 is still alive, push it back to the team
-                self.team2.push(pokemon2, criterion_team2)
+                self.team2.push(pokemon2, pokemon2.get_criterion(criterion_team2) + 0.1) # 0.1 addition ensures stability
                 if pokemon1.get_hp() <= 0:
                     print(f"{pokemon1.get_name()} is unable to battle!\n")
 

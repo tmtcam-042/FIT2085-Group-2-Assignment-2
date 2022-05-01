@@ -141,9 +141,9 @@ class PokeTeam:
         """
         self.team = ArraySortedList(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
-        [self.push(Charmander(), criterion) for _ in range(charm)]
-        [self.push(Bulbasaur(), criterion) for _ in range(bulb)]
-        [self.push(Squirtle(), criterion) for _ in range(squir)]
+        [self.push(Charmander(), Charmander().get_criterion(criterion)) for _ in range(charm)]
+        [self.push(Bulbasaur(), Bulbasaur().get_criterion(criterion)) for _ in range(bulb)]
+        [self.push(Squirtle(), Squirtle().get_criterion(criterion)) for _ in range(squir)]
 
         # add MissingNo here. By giving it a key value of zero, we ensure that it will always act after 
         # every other pokemon has fought at least once.
@@ -204,7 +204,7 @@ class PokeTeam:
             # if the ADT is not one of the above, raise an error
             raise Exception("Unknown data structure")
 
-    def push(self, pokemon: PokemonBase, criterion=None) -> PokemonBase:
+    def push(self, pokemon: PokemonBase, criterion_value: int = None) -> PokemonBase:
         """
         normalised method to add pokemons to the user's team
         :param pokemon: pokemon to be added to the user's team
@@ -217,6 +217,6 @@ class PokeTeam:
             return self.team.append(pokemon) # use append() to put the pokemon back at the end of the Queue
         elif self.team.__class__.__name__ == "ArraySortedList":
             # use add() to put the pokemon back into the Sorted List, sorted.
-            return self.team.add(ListItem(pokemon, pokemon.get_criterion(criterion)))
+            return self.team.add(ListItem(pokemon, criterion_value))
         else:
             raise ValueError("Unknown data structure")
