@@ -174,8 +174,8 @@ class Squirtle(PokemonBase):
             raise Exception("Attacker type is not Fire, Water or Grass or Unknown")
 
         if effective_damage > self.get_defence() * 2:
-            return effective_damage
+            return int(effective_damage)
         else:
-            return effective_damage // 2
+            return int(effective_damage // 2)
 
 
