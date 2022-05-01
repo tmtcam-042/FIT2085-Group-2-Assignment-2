@@ -178,6 +178,8 @@ class PokeTeam:
     def remove(self) -> PokemonBase:
         """
         generalized method to remove pokemons from the user's team
+        :complexity: ArrayStack and CircularQueue have O(1) complexity
+                     ArraySortedList has O(n) complexity, where n is the length of the list
         """
         if self.team.__class__.__name__ == "ArrayStack":
             return self.team.pop()
@@ -189,6 +191,12 @@ class PokeTeam:
             raise Exception("Unknown data structure")
 
     def push(self, pokemon: PokemonBase) -> None:
+        """
+        normalisedd method to add pokemons to the user's team
+        :param pokemon: pokemon to be added to the user's team
+        :complexity: ArrayStack and CircularQueue have O(1) complexity
+                     ArraySortedList has O(n) complexity, where n is the length of the list
+        """
         if self.team.__class__.__name__ == "ArrayStack":
             self.team.push(pokemon)
         else:
