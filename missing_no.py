@@ -27,7 +27,7 @@ class MissingNo(GlitchMon):
         self.set_hp(self.get_hp() + 1)
 
     def get_name(self) -> str:
-        """ gets the pokemon's name
+        """ gets the Pokémon's name
 
          return: string of name
          :complexity: O(1) """
@@ -43,18 +43,18 @@ class MissingNo(GlitchMon):
         return self.attack + (self.level - 1)
 
     def get_defence(self) -> int:
-        """ gets the defence value of the Pokemon
+        """ gets the defence value of the Pokémon
         depending on its level. It increases depending
-        on the level of the pokemon
+        on the level of the Pokémon
 
         return: integer of the defence value
         :complexity: O(1) """
         return self.defence + (self.level - 1)
 
     def get_speed(self) -> int:
-        """ gets the speed value of the Pokemon
+        """ gets the speed value of the Pokémon
         depending on its level. It increases depending
-        on the level of the pokemon
+        on the level of the Pokémon
 
         return: integer of the speed value
         :complexity: O(1) """
@@ -63,7 +63,7 @@ class MissingNo(GlitchMon):
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         """ calculates the damage sustained by the pokemon.
 
-        :param opponent: which other pokemon it is fighting against
+        :param opponent: which other Pokémon it is fighting against
         return: integer of the damage taken value
         :complexity: O(1) """
         effective_damage = opponent.get_attack() * 1
@@ -71,10 +71,6 @@ class MissingNo(GlitchMon):
             return effective_damage
         else:
             return effective_damage // 2
-
-if __name__ == "__main__":
-    charm = Charmander()
-    print(MissingNo())
 
 
 

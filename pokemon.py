@@ -6,6 +6,8 @@ from pokemon_base import PokemonBase
 
 class Charmander(PokemonBase):
     def __init__(self):
+        """ Initialises Charmander using its HP and type
+        :complexity: O(1)"""
         PokemonBase.__init__(self, 7, 'Fire')
         self.name = 'Charmander'
         self.attack = 6 + self.level
@@ -14,31 +16,36 @@ class Charmander(PokemonBase):
 
     def get_name(self) -> str:
         """ Gets Charmander's name
-        return: the name string """
+        return: the name string
+        :complexity: O(1)"""
         return self.name
 
     def get_attack(self) -> int:
         """ gets the attack value of Charmander which depends on its level
-         return: attack integer """
+        return: attack integer
+        :complexity: O(1)"""
         self.attack = 6 + self.level
         return self.attack
 
     def get_defence(self) -> int:
         """ gets the defence value of Charmander
-        return: defence integer """
+        :return: defence integer
+        :complexity: O(1) """
         self.defence = 4
         return self.defence
 
     def get_speed(self) -> int:
         """ gets the speed value of Charmander
-        return: speed integer """
+        :return: speed integer
+        :complexity: O(1) """
         self.speed = 7 + self.level
         return self.speed
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
         :raises Exception: if the opponent's type is not of the ones listed in the checking statements
-        return: the damage integer caused by the opponent  """
+        :return: the damage integer caused by the opponent
+        :complexity: O(1) """
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack()
         elif opponent.get_poke_type() == "Water":
@@ -58,6 +65,8 @@ class Charmander(PokemonBase):
 
 class Bulbasaur(PokemonBase):
     def __init__(self):
+        """ Initialises Bulbasaur using its HP and type
+        :complexity: O(1)"""
         PokemonBase.__init__(self, 9, 'Grass')
         self.name = 'Bulbasaur'
         self.attack = 5
@@ -66,30 +75,35 @@ class Bulbasaur(PokemonBase):
 
     def get_name(self) -> str:
         """ Gets Bulbasaur's name
-        return: the name string """
+        return: the name string
+        :complexity: O(1) """
         return self.name
 
     def get_attack(self) -> int:
         """ gets the attack value of Bulbasur which depends on its level
-        return: attack integer """
+        return: attack integer
+        :complexity: O(1) """
         return self.attack
 
     def get_defence(self) -> int:
         """ gets the defence value of Bulbasaur
-        return: defence integer """
+        return: defence integer
+        :complexity: O(1) """
         self.defence = 5
         return self.defence
 
     def get_speed(self) -> int:
         """ gets the speed value of Bulbasaur
-        return: speed integer """
+        return: speed integer
+        :complexity: O(1) """
         return self.speed + self.level // 2
 
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
         :raises Exception: if the opponent's type is not of the ones listed in the checking statements
-        return: the damage integer caused by the opponent """
+        return: the damage integer caused by the opponent
+        :complexity: O(1) """
         if opponent.get_poke_type() == "Fire":
             effective_damage = opponent.get_attack() * 2
         elif opponent.get_poke_type() == "Water":
@@ -109,6 +123,8 @@ class Bulbasaur(PokemonBase):
 
 class Squirtle(PokemonBase):
     def __init__(self):
+        """ Initialises Squirtle using its HP and type
+        :complexity: O(1)"""
         PokemonBase.__init__(self, 8, 'Water')
         self.name = 'Squirtle'
         self.attack = 4
@@ -117,28 +133,33 @@ class Squirtle(PokemonBase):
 
     def get_name(self) -> str:
         """ Gets Squirtle's name
-        return: the name string """
+        return: the name string
+        :complexity: O(1) """
         return self.name
 
     def get_attack(self) -> int:
         """ gets the attack value of Squirtle which depends on its level
-        return: attack integer """
+        return: attack integer
+        :complexity: O(1) """
         return self.attack + (self.level // 2)
 
     def get_defence(self) -> int:
         """ gets the defence value of Squirtle
-        return: defence integer """
+        return: defence integer
+        :complexity: O(1) """
         return self.defence + self.level
 
     def get_speed(self) -> int:
         """ gets the speed value of Squirtle
-        return: speed integer """
+        return: speed integer
+        :complexity: O(1) """
         return self.speed
 
     def calculate_damage_taken(self, opponent: PokemonBase) -> int:
         """ checks the type the opponent attacking and multiplies it by the effectiveness multiplier
         :raises Exception: if the opponent's type is not of the ones listed in the checking statements
-        return: the damage integer caused by the opponent  """
+        return: the damage integer caused by the opponent
+        :complexity: O(1)"""
         if opponent.get_poke_type() == 'Fire':
             # 0.5 is the effect multiplier.
             effective_damage = opponent.get_attack() * 0.5
@@ -156,14 +177,5 @@ class Squirtle(PokemonBase):
             return effective_damage
         else:
             return effective_damage // 2
-
-
-if __name__ == '__main__':
-    charm = Charmander()
-    squir = Squirtle()
-    print(squir.get_attack())
-    squir.level_up()
-    squir.level_up()
-    print(squir.get_attack())
 
 
