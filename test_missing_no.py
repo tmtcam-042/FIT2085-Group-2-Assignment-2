@@ -6,20 +6,19 @@ from tester_base import TesterBase, captured_output
 class MissingNoTester(TesterBase):
 
     def test_init(self):
-        from missing_no import MissingNo
         try:
             missN = MissingNo()
         except Exception as e:
             self.verificationErrors.append(f"Missing No could not be instantiated: {str(e)}.")
             return
         try:
-            assert missN == "MissingNo's HP = 8 and level = 1"
-        except AssertionError:
-            self.verificationErrors.append(f"Missing No is not printed correctly: {str(missN)}.")
-            return
+            s = str(missN)
+            if s != "MissingNo's HP = 8 and level = 1":
+                self.verificationErrors.append(f"String method did not return correct string: {s}")
+        except Exception as e:
+            self.verificationErrors.append(f"String method failed. {e}")
 
     def test_increaseHp(self):
-        from missing_no import MissingNo
         try:
             missN = MissingNo()
             missN.increaseHp()
@@ -34,7 +33,6 @@ class MissingNoTester(TesterBase):
             return
 
     def test_get_name(self):
-        from missing_no import MissingNo
         try:
             name = MissingNo().get_name()
         except Exception as e:
@@ -47,7 +45,6 @@ class MissingNoTester(TesterBase):
             return
 
     def test_get_attack(self):
-        from missing_no import MissingNo
         try:
             attack = MissingNo().get_attack()
         except Exception as e:
@@ -60,7 +57,6 @@ class MissingNoTester(TesterBase):
             return
 
     def test_get_defence(self):
-        from missing_no import MissingNo
         try:
             defence = MissingNo().get_attack()
         except Exception as e:
@@ -73,7 +69,6 @@ class MissingNoTester(TesterBase):
             return
 
     def test_get_speed(self):
-        from missing_no import MissingNo
         try:
             speed = MissingNo().get_speed()
         except Exception as e:
@@ -86,7 +81,6 @@ class MissingNoTester(TesterBase):
             return
 
     def test_calculate_damage_taken(self):
-        from missing_no import MissingNo
         from pokemon import Charmander
         try:
             missN = MissingNo()
@@ -104,7 +98,6 @@ class MissingNoTester(TesterBase):
         except AssertionError:
             self.verificationErrors.append(f"Damage taken is not printed correctly: {str(result)}.")
             return
-
 
 
 if __name__ == '__main__':

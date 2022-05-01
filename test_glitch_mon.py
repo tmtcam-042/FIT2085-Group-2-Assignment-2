@@ -4,29 +4,26 @@ from glitch_mon import GlitchMon
 
 class GlitchMonTester(TesterBase):
 
-    def test_glitch_mon(self):
-        from glitch_mon import GlitchMon
-        try:
-            MissingNo = GlitchMon()
-        except Exception as e:
-            self.verificationErrors.append(f"Ash's team could not be instantiated: {str(e)}.")
-            return
-        try:
-            with captured_output("0 0 0 2\n1 1 1 1") as (inp, out, err):
-                # 0 0 0 2 should fail. Too many missingos.
-                # So 1 1 1 1 should be the correct team.
-                team.choose_team(0, None)
-        except Exception as e:
-            self.verificationErrors.append(f"Ash's team could not be chosen: {str(e)}.")
-            return
-        output = out.getvalue().strip()
-        try:
-            assert str(team) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
-        except AssertionError:
-            self.verificationErrors.append(f"PokeTeam does not handle limit correctly. {str(team)}")
+    def test_innit(self):
+        pass
 
+    def test_increaseHp(self):
+        pass
+
+    def test_superpower(self):
+        from missing_no import MissingNo
+        try:
+            result = MissingNo().superPower()
+        except Exception as e:
+            self.verificationErrors.append(f"Superpower method failed to execute: {str(e)}.")
+            return
+        try:
+            assert result == "MissingNo leveled up and increased HP!" or result == "MissingNo leveled up!" or result == "MissingNo increased HP!"
+        except AssertionError:
+            self.verificationErrors.append(f"Output is not printed correctly: {str(result)}.")
+            return
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTask4)
+    suite = unittest.TestLoader().loadTestsFromTestCase(GlitchMonTester)
     unittest.TextTestRunner(verbosity=0).run(suite)
