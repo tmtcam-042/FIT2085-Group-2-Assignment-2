@@ -128,8 +128,8 @@ class TestPokeTeam(TesterBase):
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect pokemon found. Expected: {to_be_found} Got: {last_pokemon}")
         try:
-            # Check that order of list is C,B,B,S,M
-            assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
+            # Check that order of list is C,C,B,B,S,M
+            assert str(poketeam) == "Charmander's HP = 7 and level = 1, Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
         except AssertionError as e:
             self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.") # add to verificationErrors
 
