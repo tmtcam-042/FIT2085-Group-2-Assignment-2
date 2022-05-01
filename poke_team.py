@@ -53,6 +53,10 @@ class PokeTeam:
             if sum(team) > 6:
                 print("Your team can only consist of a maximum of 6 pokemons")
                 continue # if not go back to the start of the loop
+            
+            # Extending team to hold 4 values so that criterion can be directly passed
+            while len(team) < 4:
+                team.append(0)
 
             if team[3] > 1:
                 # if the user has entered more than 1 missing no -> go back to the start of loop
@@ -61,10 +65,6 @@ class PokeTeam:
             else:
                 break
 
-        # Extending team to hold 4 values so that criterion can be directly passed
-        while len(team) < 4:
-            team.append(0)
-        
         # Assign the team -> * notation is used to unpack the tuple
         self.assign_team(*team, criterion=criterion)
 
