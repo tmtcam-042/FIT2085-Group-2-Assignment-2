@@ -182,11 +182,3 @@ class PokeTeam:
         else:
             raise Exception("Unknown data structure")
 
-
-if __name__ == "__main__":
-    # ================= OUR TESTING =================
-    poketeam = PokeTeam("Ash")
-    poketeam.choose_team(1, None)
-
-    print(poketeam)
-
