@@ -12,7 +12,7 @@ class GlitchMonTester(TesterBase):
     def test_superpower(self):
         from missing_no import MissingNo
         try:
-            result = MissingNo().superPower()
+            result = MissingNo().superpower()
         except Exception as e:
             self.verificationErrors.append(f"Superpower method failed to execute: {str(e)}.")
             return

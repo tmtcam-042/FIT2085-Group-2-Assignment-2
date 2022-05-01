@@ -96,35 +96,38 @@ class TestPokeTeam(TesterBase):
 
             to_be_found = "Charmander"
             for i in range(pokemons[0]):
-                last_pokemon = poketeam.remove().__class__.__name__
-                assert last_pokemon == "Charmander"
+                last_pokemon = poketeam.remove()
+                last_pokemon_name = last_pokemon.__class__.__name__
+                assert last_pokemon_name == "Charmander"
                 poketeam.push(last_pokemon)
 
             to_be_found = "Bulbasaur"
             for i in range(pokemons[1]):
-                last_pokemon = poketeam.remove().__class__.__name__
-                assert last_pokemon == "Bulbasaur"
+                last_pokemon = poketeam.remove()
+                last_pokemon_name = last_pokemon.__class__.__name__
+                assert last_pokemon_name == "Bulbasaur"
                 poketeam.push(last_pokemon)
 
             to_be_found = "Squirtle"
             for i in range(pokemons[2]):
-                last_pokemon = poketeam.remove().__class__.__name__
-                assert last_pokemon == "Squirtle"
+                last_pokemon = poketeam.remove()
+                last_pokemon_name = last_pokemon.__class__.__name__
+                assert last_pokemon_name == "Squirtle"
                 poketeam.push(last_pokemon)
 
             to_be_found = "MissingNo"
             for i in range(pokemons[3]):
-                last_pokemon = poketeam.remove().__class__.__name__
-                assert last_pokemon == "MissingNo"
+                last_pokemon = poketeam.remove()
+                last_pokemon_name = last_pokemon.__class__.__name__
+                assert last_pokemon_name == "MissingNo"
                 poketeam.push(last_pokemon)
 
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect pokemon found. Expected: {to_be_found} Got: {last_pokemon}")
         try:
             # Check that order of list is C,B,B,S,M
-            print(poketeam)
-            # assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
-            assert str(poketeam) == "Charmander, Bulbasaur, Bulbasaur, Squirtle, MissingNo"
+            assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
+            # assert str(poketeam) == "Charmander, Bulbasaur, Bulbasaur, Squirtle, MissingNo"
         except AssertionError as e:
             self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.")
 
