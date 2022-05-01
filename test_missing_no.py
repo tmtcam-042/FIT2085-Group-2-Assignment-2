@@ -83,13 +83,8 @@ class MissingNoTester(TesterBase):
     def test_calculate_damage_taken(self):
         from pokemon import Charmander
         try:
-            missN = MissingNo()
-        except Exception as e:
-            self.verificationErrors.append(f"Missing No could not be instantiated: {str(e)}.")
-            return
-        try:
             with captured_output(str(Charmander())) as (inp, out, err):
-                result = missN.calculate_damage_taken(Charmander())
+                result = MissingNo().calculate_damage_taken(Charmander())
         except Exception as e:
             self.verificationErrors.append(f"Calculate Damage method failed to execute: {str(e)}.")
             return
