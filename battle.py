@@ -144,6 +144,9 @@ class Battle:
                 if pokemon1.get_hp() <= 0:
                     print(f"{pokemon1.get_name()} is unable to battle!\n")
 
+            print(f"Team 1: {str(self.team1)}")
+            print(f"Team 2: {str(self.team2)}")
+
         # Return winner or draw
         if len(self.team1) > 0:
             return self.team1.trainer_name

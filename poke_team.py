@@ -141,13 +141,15 @@ class PokeTeam:
         """
         self.team = ArraySortedList(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
-        [self.team.add(ListItem(Charmander(), Charmander().get_criterion(criterion))) for _ in range(charm)]
-        [self.team.add(ListItem(Bulbasaur(), Bulbasaur().get_criterion(criterion))) for _ in range(bulb)]
-        [self.team.add(ListItem(Squirtle(), Squirtle().get_criterion(criterion))) for _ in range(squir)]
+        [self.push(Charmander(), criterion) for _ in range(charm)]
+        [self.push(Bulbasaur(), criterion) for _ in range(bulb)]
+        [self.push(Squirtle(), criterion) for _ in range(squir)]
 
         # add MissingNo here. By giving it a key value of zero, we ensure that it will always act after 
         # every other pokemon has fought at least once.
         [self.team.add(ListItem(MissingNo(), 0)) for _ in range(missN)]
+
+        print(self)
 
     def __str__(self) -> str:
         """
@@ -197,7 +199,7 @@ class PokeTeam:
         elif self.team.__class__.__name__ == "CircularQueue":
             return self.team.serve() # use serve() to remove the pokemon and return it
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.delete_at_index(0).value # use delete_at_index() to remove the pokemon and return it
+            return self.team.delete_at_index(len(self.team) - 1).value # use delete_at_index() to remove the pokemon and return it
         else:
             # if the ADT is not one of the above, raise an error
             raise Exception("Unknown data structure")
