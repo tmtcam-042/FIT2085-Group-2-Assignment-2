@@ -123,10 +123,10 @@ class PokeTeam:
         """
         self.team = CircularQueue(6)
         # for loops for pushing pokemons to self.team(CircularQueue ADT) if team is not full
-        [self.team.append(MissingNo()) for _ in range(missN) if not self.team.is_full()]
         [self.team.append(Charmander()) for _ in range(charm) if not self.team.is_full()]
         [self.team.append(Bulbasaur()) for _ in range(bulb) if not self.team.is_full()]
         [self.team.append(Squirtle()) for _ in range(squir) if not self.team.is_full()]
+        [self.team.append(MissingNo()) for _ in range(missN) if not self.team.is_full()]
 
     def assign_optimised_mode_battle(self, charm: int, bulb: int, squir: int, missN: int, criterion: str) -> None:
         """
