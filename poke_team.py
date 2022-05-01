@@ -172,9 +172,13 @@ class PokeTeam:
         else:
             raise Exception("Unknown data structure")
 
-    def push(self, pokemon: PokemonBase) -> None:
+    def push(self, pokemon: PokemonBase, criterion: str = None) -> None:
         if self.team.__class__.__name__ == "ArrayStack":
             self.team.push(pokemon)
+        elif self.team.__class__.__name__ == "CircularQueue":
+            return self.team.append(pokemon)
+        elif self.team.__class__.__name__ == "ArraySortedList":
+            self.team.add(ListItem(pokemon, pokemon.get_criterion(criterion)))
         else:
             raise Exception("Unknown data structure")
 
