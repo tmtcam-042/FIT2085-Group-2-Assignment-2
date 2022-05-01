@@ -214,6 +214,6 @@ class PokeTeam:
         elif self.team.__class__.__name__ =="CircularQueue":
             return self.team.append(pokemon) # use append() to put the pokemon back into the team
         elif self.team.__class__.__name__ == "ArraySortedList":
-            return self.team.add(ListItem(pokemon, pokemon.get_criterion(criterion)))
+            return self.team.add(ListItem(pokemon.value, pokemon.value.get_criterion(criterion)))
         else:
             raise ValueError("Unknown data structure")
