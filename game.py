@@ -1,6 +1,12 @@
 """
-Game Driver file
+Game Driver file, used to run the entire application.
+Every file for Assignment_2's functionality will be run by calling this file,
+enabling a user to play the entire game.
+Performs pre-condition checking of criterion and is therefore important to
+proper game execution.
 """
+__author__ = "Kisara Batugedara, Rishi Bidani, Neth Botheju, Thomas Cameron"
+__docformat__ = "reStructuredText"
 
 from battle import Battle
 

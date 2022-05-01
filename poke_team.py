@@ -124,7 +124,6 @@ class PokeTeam:
         :param bulb: number of bulbasaurs
         :param squir: number of squirtles
         :return: None
-        :raise Exception: if criterion is invalid
         """
         self.team = ArraySortedList(6)
         # for loop for pushing pokemons to self.team(CircularQueue ADT) if team is not full
