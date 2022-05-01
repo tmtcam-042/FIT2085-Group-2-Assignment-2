@@ -41,22 +41,21 @@ class PokeTeam:
         while True:
             try:
                 team = list(map(int, input(choose_team_details).strip().split(" ")))
-                if len(team) == 4 and team[3] > 0:
-                    pass
-                else:
-                    while len(team) < 4:
-                        # Append 0 values to team so that self.assign_team() receives correct number of parameters
-                        team.append(0)
-
             except Exception as e:
                 print(e)
                 continue
-
             if sum(team) > 6:
-                print("Your team can only consist of a maximum of 6 pokemon")
+                print("Your team can only consist of a maximum of 6 pokemons")
+                continue
+            elif team[3] > 1:
+                print("Your team can only consist of a maximum of 1 missing pokemon")
                 continue
             else:
                 break
+
+        # Extending team to hold 4 values so that criterion can be directly passed
+        while len(team) < 4:
+            team.append(0)
         self.assign_team(*team, criterion=criterion)
 
     def assign_team(self, charm: int = 0, bulb: int = 0, squir: int = 0, missN: int = 0, criterion: str = None) -> None:
