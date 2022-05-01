@@ -17,6 +17,7 @@ battle_mode = int(input("Input the preferred battle mode (0/1/2): "))
 battle = Battle(team1_name, team2_name)
 
 if battle_mode == 0:
+    print(battle.team1)
     print("Winner: " + battle.set_mode_battle())
 
 elif battle_mode == 1:
@@ -34,4 +35,5 @@ elif battle_mode == 2:
         criterion2 = input(f"Input {team2_name}'s criteria: lvl, hp, attack, defence, speed: ").lower()
 
     print("Winner: " + battle.optimised_mode_battle(criterion1, criterion2))
+
 

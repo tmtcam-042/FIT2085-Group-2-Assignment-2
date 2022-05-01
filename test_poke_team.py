@@ -12,6 +12,7 @@ class TestPokeTeam(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"Gary's team could not be instantiated: {str(e)}.")
         try:
+            # input required values, when asked
             with captured_output("3 4 1\n2 2 2") as (inp, out, err):
                 # 3 4 1 should fail, since it is too many pokemon.
                 # So 2 2 2 should be the correct team.
@@ -19,6 +20,7 @@ class TestPokeTeam(TesterBase):
         except Exception as e:
             self.verificationErrors.append(f"Gary's team could not be chosen: {str(e)}.")
             return
+        # 
         output = out.getvalue().strip()
 
         # Check the prompt is being printed.
@@ -38,14 +40,14 @@ class TestPokeTeam(TesterBase):
         team = PokeTeam("Ash")
         try:
             team.battle_mode = 0
-            team.assign_team(3, 2, 0, 0, "lvl")
+            team.assign_team(3, 2, 0, 0, "lvl") # 3 Bulbasaurs, 2 Squirtles, 0 MissingNo, criteria: lvl
             assert team.team.__class__.__name__ == "ArrayStack"
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect ADT, expected ArrayStack got {team.team.__class__.__name__}")
 
         try:
             team.battle_mode = 1
-            team.assign_team(3, 2, 0, 0, "lvl")
+            team.assign_team(3, 2, 0, 0, "lvl") # 3 Bulbasaurs, 2 Squirtles, 0 MissingNo, criteria = lvl
             assert team.team.__class__.__name__ == "CircularQueue"
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect ADT, expected CircularQueue got {team.team.__class__.__name__}")
@@ -63,23 +65,23 @@ class TestPokeTeam(TesterBase):
         to_be_found = None
         last_pokemon = None
         try:
-            pokemons = 3, 2, 1, 0
-            team.assign_set_mode_battle(*pokemons)
+            pokemons = 3, 2, 1, 0 # 3 Bulbasaurs, 2 Squirtles, 1 Charmander, 0 MissingNo
+            team.assign_set_mode_battle(*pokemons) # unpacking the tuple
 
             to_be_found = "Charmander"
             for i in range(pokemons[0]):
-                last_pokemon = team.remove().__class__.__name__
-                assert last_pokemon == "Charmander"
+                last_pokemon = team.remove().__class__.__name__ # get the next pokemon
+                assert last_pokemon == "Charmander" # check the pokemon is Charmander
 
             to_be_found = "Bulbasaur"
             for i in range(pokemons[1]):
-                last_pokemon = team.remove().__class__.__name__
-                assert last_pokemon == "Bulbasaur"
+                last_pokemon = team.remove().__class__.__name__ # get the next pokemon
+                assert last_pokemon == "Bulbasaur" # check the pokemon is Bulbasaur
 
             to_be_found = "Squirtle"
             for i in range(pokemons[2]):
-                last_pokemon = team.remove().__class__.__name__
-                assert last_pokemon == "Squirtle"
+                last_pokemon = team.remove().__class__.__name__ # get the next pokemon
+                assert last_pokemon == "Squirtle" # check the pokemon is Squirtle
 
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect pokemon found. Expected: {to_be_found}, Got: {last_pokemon}")
@@ -87,8 +89,8 @@ class TestPokeTeam(TesterBase):
     def test_assign_rotating_mode_battle(self):
         poketeam = PokeTeam("Ash")
         try:
-            pokemons = [1, 2, 1, 1]
-            poketeam.assign_rotating_mode_battle(pokemons[0], pokemons[1], pokemons[2], pokemons[3])
+            pokemons = 2, 2, 1, 1 # 2 Charmanders, 2 Bulbasaurs, 1 Squirtle, 1 Charmander
+            poketeam.assign_rotating_mode_battle(*pokemons) # assign the team
         except Exception as e:
             self.verificationErrors.append(f"Team failed to assign: {str(e)}.")
             return
@@ -96,31 +98,32 @@ class TestPokeTeam(TesterBase):
 
             to_be_found = "Charmander"
             for i in range(pokemons[0]):
+                # get the next pokemon
                 last_pokemon = poketeam.remove()
-                last_pokemon_name = last_pokemon.__class__.__name__
-                assert last_pokemon_name == "Charmander"
-                poketeam.push(last_pokemon)
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Charmander" # check the pokemon is Charmander
+                poketeam.push(last_pokemon) # push it back into the ADT
 
             to_be_found = "Bulbasaur"
             for i in range(pokemons[1]):
-                last_pokemon = poketeam.remove()
-                last_pokemon_name = last_pokemon.__class__.__name__
-                assert last_pokemon_name == "Bulbasaur"
-                poketeam.push(last_pokemon)
+                last_pokemon = poketeam.remove()            # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Bulbasaur" # check the pokemon is Bulbasaur
+                poketeam.push(last_pokemon) # push it back into the ADT
 
             to_be_found = "Squirtle"
             for i in range(pokemons[2]):
-                last_pokemon = poketeam.remove()
-                last_pokemon_name = last_pokemon.__class__.__name__
-                assert last_pokemon_name == "Squirtle"
-                poketeam.push(last_pokemon)
+                last_pokemon = poketeam.remove()        # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "Squirtle" # check the pokemon is Squirtle
+                poketeam.push(last_pokemon) # push it back into the ADT
 
             to_be_found = "MissingNo"
             for i in range(pokemons[3]):
-                last_pokemon = poketeam.remove()
-                last_pokemon_name = last_pokemon.__class__.__name__
-                assert last_pokemon_name == "MissingNo"
-                poketeam.push(last_pokemon)
+                last_pokemon = poketeam.remove()       # get the next pokemon
+                last_pokemon_name = last_pokemon.__class__.__name__ # store the last pokemon name
+                assert last_pokemon_name == "MissingNo" # check the pokemon is MissingNo
+                poketeam.push(last_pokemon) # push it back into the ADT
 
         except AssertionError as e:
             self.verificationErrors.append(f"Incorrect pokemon found. Expected: {to_be_found} Got: {last_pokemon}")
@@ -128,7 +131,7 @@ class TestPokeTeam(TesterBase):
             # Check that order of list is C,B,B,S,M
             assert str(poketeam) == "Charmander's HP = 7 and level = 1, Bulbasaur's HP = 9 and level = 1, Bulbasaur's HP = 9 and level = 1, Squirtle's HP = 8 and level = 1, MissingNo's HP = 8 and level = 1"
         except AssertionError as e:
-            self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.")
+            self.verificationErrors.append(f"Team is not correct after assignment: {str(e)}.") # add to verificationErrors
 
     def test_assign_optimised_mode_battle(self):
         poketeam = PokeTeam("Ash")
