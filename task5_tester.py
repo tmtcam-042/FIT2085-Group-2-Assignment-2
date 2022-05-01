@@ -28,7 +28,7 @@ class TestTask4(TesterBase):
         except AssertionError:
             self.verificationErrors.append(f"Team 1 is not correct after battle: {str(b.team1)}")
 
-    ### ADD TESTS HERE
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestTask4)

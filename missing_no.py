@@ -68,3 +68,6 @@ class MissingNo(GlitchMon):
 if __name__ == "__main__":
     charm = Charmander()
     print(MissingNo())
+
+
+

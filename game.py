@@ -11,10 +11,10 @@ battle_mode = int(input("Input the preferred battle mode (0/1/2): "))
 battle = Battle(team1_name, team2_name)
 
 if battle_mode == 0:
-    print("The winner is: " + battle.set_mode_battle())
+    print("Winner: " + battle.set_mode_battle())
 
 elif battle_mode == 1:
-    print("The winner is: " + battle.rotating_mode_battle())
+    print("Winner: " + battle.rotating_mode_battle())
 
 elif battle_mode == 2:
     criterion1 = None

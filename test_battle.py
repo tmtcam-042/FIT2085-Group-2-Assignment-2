@@ -27,7 +27,7 @@ class TestBattle(TesterBase):
             return
         try:
             with captured_output("2 2 1\n 0 2 1") as (inp, out, err):
-                result = b.optimised_mode_battle("hp", "level")
+                result = b.optimised_mode_battle("hp", "lvl")
         except Exception as e:
             self.verificationErrors.append(f"Battle failed to execute: {str(e)}.")
             return
@@ -81,4 +81,5 @@ class TestBattle(TesterBase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestBattle)
     unittest.TextTestRunner(verbosity=0).run(suite)
+
 

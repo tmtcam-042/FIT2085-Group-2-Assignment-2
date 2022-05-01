@@ -25,7 +25,7 @@ class TesterBase(unittest.TestCase):
         repeat code within those tests. Used in conjuction with tearDown to help ensure the test is isolated from
         the performance of other tests.
 
-        Here it's just creating storage for any potential raised errors in the tests."""
+            Here it's just creating storage for any potential raised errors in the tests."""
         self.documentationErrors = []
         self.verificationErrors = []
         self.syntaxErrors = []
